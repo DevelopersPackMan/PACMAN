@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bm4rpnkwl8lvl"]
+
+[ext_resource type="Script" uid="uid://7xid1rcxwqey" path="res://palet.gd" id="1_6lbic"]
+[ext_resource type="Texture2D" uid="uid://dx83son1hhyv4" path="res://Resources/Graphics/palet.png" id="1_7kiwb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kiwb"]
+size = Vector2(12, 12)
+
+[node name="Palet" type="Area2D" unique_id=347196212]
+position = Vector2(0, 4)
+script = ExtResource("1_6lbic")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=246898419]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("1_7kiwb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=57900905]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_7kiwb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

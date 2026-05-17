@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dyi7f655381s"]
+
+[ext_resource type="Script" uid="uid://dksd31v1hgbm8" path="res://pixel.gd" id="1_ptkfl"]
+[ext_resource type="Texture2D" uid="uid://bgtbnmdmipq1q" path="res://Resources/Graphics/piksel.png" id="2_eipbq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eipbq"]
+
+[node name="Pixel" type="Area2D" unique_id=1069030431]
+script = ExtResource("1_ptkfl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1706548467]
+scale = Vector2(4, 4)
+texture = ExtResource("2_eipbq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=44321867]
+shape = SubResource("CircleShape2D_eipbq")
