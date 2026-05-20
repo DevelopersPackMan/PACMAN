@@ -1,12 +1,12 @@
 extends Area2D
-class_name Palet
+class_name Pellet
 
-signal palet_eaten(palet: Palet)
+signal pellet_eaten(should_allow_eating_ghosts: bool)
 @export var should_allow_eating_ghosts = false
 
 func _on_body_entered(body): 
 	if body is Player: 
-		palet_eaten.emit(self)
+		pellet_eaten.emit(should_allow_eating_ghosts)
 		queue_free()
 		
 		if should_allow_eating_ghosts: 
