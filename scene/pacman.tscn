@@ -1,12 +1,51 @@
 [gd_scene format=3 uid="uid://yv4ka5fjkiw5"]
 
 [ext_resource type="Script" uid="uid://b7qn1gsymosn0" path="res://scene/pacman.gd" id="1_wy4gw"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_d8unl"]
-load_path = "res://.godot/imported/Pacman_02.png-b8e02f5ebd8bf7290effe2b8cb358779.ctex"
+[ext_resource type="Texture2D" uid="uid://bh35fl0wqe63" path="res://Resources/Graphics/Pacman_01.png" id="2_xl4iw"]
+[ext_resource type="Texture2D" uid="uid://bopdn3mqu64i1" path="res://Resources/Graphics/Pacman_02.png" id="4_8qrsu"]
+[ext_resource type="Texture2D" uid="uid://danvv7ipa5hah" path="res://Resources/Graphics/direction_pointer.png" id="4_680o6"]
+[ext_resource type="Texture2D" uid="uid://dn5n35q1uw6no" path="res://Resources/Graphics/Pacman_03.png" id="5_sgclv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xl4iw"]
 radius = 8.0
+
+[sub_resource type="Animation" id="Animation_pdxar"]
+resource_name = "Defoult"
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_xl4iw"), ExtResource("4_8qrsu"), ExtResource("5_sgclv")]
+}
+
+[sub_resource type="Animation" id="Animation_cwc4c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_xl4iw")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0yfel"]
+_data = {
+&"Defoult": SubResource("Animation_pdxar"),
+&"RESET": SubResource("Animation_cwc4c")
+}
 
 [node name="player" type="CharacterBody2D" unique_id=654613068]
 scale = Vector2(0.1, 0.1)
@@ -15,8 +54,18 @@ script = ExtResource("1_wy4gw")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322231714]
 texture_filter = 1
 rotation = -6.2831855
-scale = Vector2(-1, 1)
-texture = SubResource("CompressedTexture2D_d8unl")
+scale = Vector2(2, 2)
+texture = ExtResource("2_xl4iw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=736052156]
 shape = SubResource("CircleShape2D_xl4iw")
+
+[node name="DirectionPointer" type="Sprite2D" parent="." unique_id=1689199943]
+visible = false
+texture_filter = 1
+position = Vector2(-120, 0)
+scale = Vector2(5, 3)
+texture = ExtResource("4_680o6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=402655162]
+libraries/ = SubResource("AnimationLibrary_0yfel")
