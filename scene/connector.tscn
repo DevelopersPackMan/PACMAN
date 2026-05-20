@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cgwvdwc37kva8"]
+
+[ext_resource type="Script" uid="uid://ce3w6py7pv3qh" path="res://connector.gd" id="1_dirau"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(35, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(26, 100)
+
+[node name="Connector" type="Node2D" unique_id=168904100]
+script = ExtResource("1_dirau")
+
+[node name="DesenColorRect" type="ColorRect" parent="." unique_id=637944861]
+offset_left = 632.0
+offset_top = -62.0
+offset_right = 712.0
+offset_bottom = 38.0
+color = Color(0, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="DesenColorRect" unique_id=1762923641]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DesenColorRect/Area2D" unique_id=639166395]
+position = Vector2(63.5, 48)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="LeviColorRect2" type="ColorRect" parent="." unique_id=874116512]
+offset_left = -726.0
+offset_top = -50.0
+offset_right = -646.0
+offset_bottom = 50.0
+color = Color(0, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="LeviColorRect2" unique_id=251779576]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeviColorRect2/Area2D" unique_id=467576248]
+position = Vector2(13, 49)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[connection signal="body_entered" from="DesenColorRect/Area2D" to="." method="_on_right_area_2d_body_entered"]
+[connection signal="body_exited" from="DesenColorRect/Area2D" to="." method="_on_right_area_2d_body_exited"]
+[connection signal="body_entered" from="LeviColorRect2/Area2D" to="." method="_on_left_area_2d_body_entered"]
+[connection signal="body_exited" from="LeviColorRect2/Area2D" to="." method="_on_left_area_2d_body_exited"]
