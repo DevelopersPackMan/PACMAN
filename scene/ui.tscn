@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://byuy6q8y4xxwp"]
+
+[ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="1_onfsl"]
+[ext_resource type="Script" uid="uid://bgscrpfkwl8wv" path="res://scene/ui.gd" id="1_s2f8l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijgdr"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_s2f8l"]
+default_font = ExtResource("1_onfsl")
+default_font_size = 40
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1247300037]
+script = ExtResource("1_s2f8l")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2030652078]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=808055901]
+visible = false
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer" unique_id=1549455273]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijgdr")
+
+[node name="GameLabel" type="Label" parent="MarginContainer/CenterContainer/Panel" unique_id=816781355]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_s2f8l")
+text = "Game won!!"
+horizontal_alignment = 1
+vertical_alignment = 1
