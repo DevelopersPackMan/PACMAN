@@ -1,81 +1,120 @@
 extends Area2D
+class_name Ghost
+
+signal direction_change(current_direction: String)
 
 var current_scatter_index = 0
 var game_over = false
+var direction = null
+
+var scatter_targets: Array[Vector2] = [
+	Vector2(12, 9),
+	Vector2(22, 9),
+	Vector2(22, 17),
+	Vector2(12, 17)
+]
 
 @export var speed = 120
-@export var movements_targets: MovementTargets
 @export var tile_map: TileMap
+@export var color: Color
+
 @onready var navigation_agent_2d = $NavigationAgent2D
+@onready var body_sprite = $BodySprite
+
+# Časovanik, ki reši duhca, če se nekje zatakne
+var backup_timer: Timer
 
 func _ready():
-	navigation_agent_2d.path_desired_distance = 4.0
-	navigation_agent_2d.target_desired_distance = 4.0
+	# Povečala bova razdaljo, da agent lažje zazna, ko je "blizu" točke
+	navigation_agent_2d.path_desired_distance = 10.0
+	navigation_agent_2d.target_desired_distance = 10.0
 	navigation_agent_2d.target_reached.connect(on_position_reached)
+	
+	# Ustvarimo skriti časovnik za vsak slučaj
+	backup_timer = Timer.new()
+	backup_timer.wait_time = 4.0 # Če po 4 sekundah ne doseže točke, gre naprej
+	backup_timer.one_shot = true
+	backup_timer.timeout.connect(on_position_reached)
+	add_child(backup_timer)
+	
 	call_deferred("setup")
 	
 func _process(delta):
-	if game_over: 
-		return
-		
-	if navigation_agent_2d.is_navigation_finished():
-		on_position_reached()
-		return # Preskočimo ta okvir, da agent v ozadju uspešno osveži naslednjo pot
-		
-	# Premaknemo duhca po izrisani poti okoli stene
-	var next_path_pos = navigation_agent_2d.get_next_path_position()
-	move_ghost(next_path_pos, delta)
-	
+	if not game_over:
+		move_ghost(navigation_agent_2d.get_next_path_position(), delta)
+
 func move_ghost(next_position: Vector2, delta: float):
-	var direction = (next_position - global_position).normalized()
-	global_position += direction * speed * delta
+	var current_ghost_position = global_position
+	var move_direction = (next_position - current_ghost_position).normalized()
+	
+	calculate_direction(move_direction)
+	
+	var new_velocity = move_direction * speed * delta
+	position += new_velocity
+	
+	navigation_agent_2d.velocity = new_velocity
 		
+func calculate_direction(move_direction: Vector2): 
+	var current_direction = direction
+	
+	if abs(move_direction.x) > abs(move_direction.y):
+		if move_direction.x > 0.1:
+			current_direction = "right"
+		elif move_direction.x < -0.1: 
+			current_direction = "left"
+	else:
+		if move_direction.y > 0.1: 
+			current_direction = "down"
+		elif move_direction.y < -0.1: 
+			current_direction = "up"
+	
+	if current_direction != direction and current_direction != null: 
+		direction = current_direction
+		direction_change.emit(direction)
+	
 func setup():
 	if tile_map == null:
-		print("NAPAKA: TileMap ni nastavljen na duhcu!")
+		print("NAPAKA: TileMap ni nastavljen v Inspectorju duhca!")
 		return
 		
 	var nav_map = tile_map.get_navigation_map(0)
 	navigation_agent_2d.set_navigation_map(nav_map)
 	NavigationServer2D.agent_set_map(navigation_agent_2d.get_rid(), nav_map)
 	
-	# Ročna nastavitev unikatnih koordinat za tega duhca v kodi
-	if movements_targets:
-		movements_targets.scatter_targets.clear() 	
-		movements_targets.scatter_targets.append(Vector2(12, 9))
-		movements_targets.scatter_targets.append(Vector2(22, 9))
-		movements_targets.scatter_targets.append(Vector2(22, 17))
-		movements_targets.scatter_targets.append(Vector2(12, 17))
-		
-		print("Koordinate uspešno nastavljene. Število točk: ", movements_targets.scatter_targets.size())
-
-	# Počakamo, da se navigacija v ozadju sinhronizira
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
-	# Zaženemo neskončno zanko premikanja
 	start_scatter_loop()
 	
 func start_scatter_loop():
-	if movements_targets and movements_targets.scatter_targets.size() > 0:
-		var tile_coords = movements_targets.scatter_targets[current_scatter_index]
+	if game_over:
+		return
+		
+	if scatter_targets.size() > 0:
+		var tile_coords = scatter_targets[current_scatter_index]
 		var global_pixels = (tile_coords * 24) + Vector2(12, 12)
 		
 		navigation_agent_2d.target_position = global_pixels
-		print("Duhec gre proti točki: ", tile_coords)
+		print("Duhec potuje proti: ", tile_coords, " (Piksli: ", global_pixels, ")")
 		
+		# Zaženemo rešilni časovnik
+		backup_timer.start()
+
 func on_position_reached(): 
 	if game_over:
 		return
 		
-	if movements_targets and movements_targets.scatter_targets.size() > 0:
-		current_scatter_index = (current_scatter_index + 1) % movements_targets.scatter_targets.size()
+	backup_timer.stop() # Ustavimo časovnik, ker smo uspešno prispeli
+	
+	if scatter_targets.size() > 0:
+		current_scatter_index = (current_scatter_index + 1) % scatter_targets.size()
+		print("🔄 TOČKA DOSEŽENA! Naslednji indeks v zanki: ", current_scatter_index)
 		
 		start_scatter_loop()
-		print("Duhec je dosegel točko. Naslednja v zanki je indeks: ", current_scatter_index)
 
 func stop_game(won: bool):
 	game_over = true
+	backup_timer.stop()
 	if won:
 		print("GAME WON: Pacman je pojedel vse pike!")
 	else:
