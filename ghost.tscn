@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cddk7yp2wx6ev"]
+
+[ext_resource type="Texture2D" uid="uid://bwh3pnp6rcycn" path="res://Resources/Graphics/Ghost/Ghost_Body_01.png" id="1_6attn"]
+[ext_resource type="Script" uid="uid://cxtv5ykdih3x5" path="res://ghost.gd" id="1_obmiq"]
+[ext_resource type="Texture2D" uid="uid://gcljnvys5tll" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Down.png" id="2_obmiq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6attn"]
+radius = 29.966648
+
+[node name="Ghost" type="Area2D" unique_id=1504479397]
+script = ExtResource("1_obmiq")
+
+[node name="BodySprite" type="Sprite2D" parent="." unique_id=794951695]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_6attn")
+
+[node name="EyesSprite" type="Sprite2D" parent="." unique_id=953759998]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("2_obmiq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=81860719]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_6attn")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1353557442]

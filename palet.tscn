@@ -7,6 +7,7 @@
 size = Vector2(12, 12)
 
 [node name="Palet" type="Area2D" unique_id=347196212]
+z_index = 2
 position = Vector2(0, 4)
 script = ExtResource("1_6lbic")
 
