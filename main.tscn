@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://di3ce0vr4wv41" path="res://palets_manager.gd" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cgwvdwc37kva8" path="res://scene/connector.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="7_272bh"]
-[ext_resource type="Texture2D" uid="uid://c2jhf1bmtgqhu" path="res://Resources/Graphics/brez_ozadja_zvezde_manj_mocno.png" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
 [ext_resource type="Resource" uid="uid://bhoawiprpg6bh" path="res://Resources/red_movement_targets.tres" id="9_kek77"]
 
@@ -2163,24 +2162,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("9_kek77")
-[node name="MovementTargets" type="Node" parent="." unique_id=1550669898]
-
-[node name="RedGhost" type="Node" parent="MovementTargets" unique_id=1227687171]
-
-[node name="Scatter" type="Node" parent="MovementTargets/RedGhost" unique_id=1089714857]
-
-[node name="Red1" type="Marker2D" parent="MovementTargets/RedGhost/Scatter" unique_id=1862170116]
-position = Vector2(-405, -451)
-
-[node name="Red2" type="Marker2D" parent="MovementTargets/RedGhost/Scatter" unique_id=1925883135]
-position = Vector2(-644, -452)
-
-[node name="Red3" type="Marker2D" parent="MovementTargets/RedGhost/Scatter" unique_id=1002240663]
-position = Vector2(-644, -642)
-
-[node name="Red4" type="Marker2D" parent="MovementTargets/RedGhost/Scatter" unique_id=1328371571]
-position = Vector2(-403, -642)
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
