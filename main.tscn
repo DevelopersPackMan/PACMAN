@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://gqarpc5gyb4q"]
 
 [ext_resource type="Texture2D" uid="uid://di7lt8ehvdxdh" path="res://Resources/Graphics/walls/wall_atlas.png" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://khsrvfe3d3ga" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Texture2D" uid="uid://8cjr636270dr" path="res://Resources/Graphics/maze/origmaps_2x.png" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://yv4ka5fjkiw5" path="res://scene/pacman.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bm4rpnkwl8lvl" path="res://palet.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://di3ce0vr4wv41" path="res://palets_manager.gd" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cgwvdwc37kva8" path="res://scene/connector.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://c2jhf1bmtgqhu" path="res://Resources/Graphics/brez_ozadja_zvezde_manj_mocno.png" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
 [ext_resource type="Resource" uid="uid://bhoawiprpg6bh" path="res://Resources/red_movement_targets.tres" id="9_kek77"]
 
@@ -301,6 +303,7 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 
 [node name="main" type="Node" unique_id=98923383]
+script = ExtResource("1_5vw27")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=541958996]
 position = Vector2(-128, -247)
@@ -2151,6 +2154,16 @@ position = Vector2(207, 601)
 
 [node name="UI" parent="." unique_id=1247300037 instance=ExtResource("7_272bh")]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1236379389]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1136753476]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_kek77")
 [node name="MovementTargets" type="Node" parent="." unique_id=1550669898]
 
 [node name="RedGhost" type="Node" parent="MovementTargets" unique_id=1227687171]
