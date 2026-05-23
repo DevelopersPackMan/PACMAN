@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cgwvdwc37kva8" path="res://scene/connector.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://txudig2duw0e" path="res://Resources/movement_target.gd" id="10_4c57u"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kek77"]
 vertices = PackedVector2Array(-1.84375, -0.6171875, -1.9140625, -12, 1.078125, -12, 1.109375, -0.6171875, -1.796875, 1.9765625, 12, -0.6171875, 12, 1.96875, 1.2578125, 1.9765625, 1.2265625, 12, -1.796875, 12, -12, 1.9765625, -12, -0.5390625)
@@ -2193,6 +2194,7 @@ tile_map = NodePath("../../TileMap")
 color = Color(1, 0, 0, 1)
 
 [node name="MovementTargets" type="Node" parent="." unique_id=386480397]
+script = ExtResource("10_4c57u")
 
 [node name="RedGhost" type="Node" parent="MovementTargets" unique_id=1751940563]
 

@@ -3,9 +3,53 @@
 [ext_resource type="Texture2D" uid="uid://bwh3pnp6rcycn" path="res://Resources/Graphics/Ghost/Ghost_Body_01.png" id="1_6attn"]
 [ext_resource type="Script" uid="uid://cxtv5ykdih3x5" path="res://ghost.gd" id="1_obmiq"]
 [ext_resource type="Texture2D" uid="uid://gcljnvys5tll" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Down.png" id="2_obmiq"]
+[ext_resource type="Script" uid="uid://dqw1cjif15frm" path="res://ghost_body_sprite.gd" id="3_xtt71"]
+[ext_resource type="Script" uid="uid://d35fr787wvck5" path="res://ghost_eyes_sprite.gd" id="5_hiw70"]
+[ext_resource type="Texture2D" uid="uid://k486j4lctjb7" path="res://Resources/Graphics/Ghost/Ghost_Body_02.png" id="5_kjq22"]
+[ext_resource type="Texture2D" uid="uid://dcgg14tac7mou" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Up.png" id="6_pa7oq"]
+[ext_resource type="Texture2D" uid="uid://cvgpjfpg6poi1" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Left.png" id="7_yc3kp"]
+[ext_resource type="Texture2D" uid="uid://dw3xx2kpcbjrs" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Right.png" id="8_bqjpw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6attn"]
 radius = 29.966648
+
+[sub_resource type="Animation" id="Animation_hiw70"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_6attn")]
+}
+
+[sub_resource type="Animation" id="Animation_jw18l"]
+resource_name = "moving"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:texture")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_6attn"), ExtResource("5_kjq22")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2jh1f"]
+_data = {
+&"RESET": SubResource("Animation_hiw70"),
+&"moving": SubResource("Animation_jw18l")
+}
 
 [node name="Ghost" type="Area2D" unique_id=1504479397]
 script = ExtResource("1_obmiq")
@@ -14,14 +58,23 @@ script = ExtResource("1_obmiq")
 texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("1_6attn")
+script = ExtResource("3_xtt71")
 
 [node name="EyesSprite" type="Sprite2D" parent="." unique_id=953759998]
 texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("2_obmiq")
+script = ExtResource("5_hiw70")
+up = ExtResource("6_pa7oq")
+down = ExtResource("2_obmiq")
+left = ExtResource("7_yc3kp")
+right = ExtResource("8_bqjpw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=81860719]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_6attn")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1353557442]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1328875412]
+libraries/ = SubResource("AnimationLibrary_2jh1f")
