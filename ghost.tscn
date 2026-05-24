@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d0uu218xbjg0r" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_White_02.png" id="10_2pguw"]
 [ext_resource type="Texture2D" uid="uid://bd4p43ndtu2v8" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_Blue_01.png" id="10_bqjpw"]
 [ext_resource type="Texture2D" uid="uid://blq70pt5we2b8" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_Blue_02.png" id="11_wacvi"]
+[ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="14_2pguw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6attn"]
 radius = 32.140316
@@ -90,11 +91,12 @@ _data = {
 }
 
 [node name="Ghost" type="Area2D" unique_id=1504479397]
+collision_layer = 16
 script = ExtResource("1_obmiq")
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=794951695]
 texture_filter = 1
-position = Vector2(24, 24)
+position = Vector2(24, 31)
 scale = Vector2(4, 4)
 texture = ExtResource("1_6attn")
 script = ExtResource("3_xtt71")
@@ -130,6 +132,16 @@ wait_time = 0.2
 wait_time = 8.0
 one_shot = true
 
+[node name="PointLabel" type="Label" parent="." unique_id=1490287201]
+visible = false
+offset_left = 5.0
+offset_top = -29.0
+offset_right = 45.0
+offset_bottom = -6.0
+theme_override_fonts/font = ExtResource("14_2pguw")
+text = "200"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ScatterTimer" to="." method="_on_scatter_timer_timeout"]
 [connection signal="timeout" from="UpdateChasingTargetPositionTimer" to="." method="_on_update_chasing_target_position_timer_timeout"]
 [connection signal="timeout" from="RunAwayTimer" to="." method="_on_run_away_timer_timeout"]

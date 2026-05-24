@@ -49,6 +49,7 @@ _data = {
 
 [node name="player" type="CharacterBody2D" unique_id=654613068]
 scale = Vector2(0.1, 0.1)
+collision_mask = 30
 script = ExtResource("1_wy4gw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1322231714]
