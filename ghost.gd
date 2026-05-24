@@ -3,7 +3,8 @@ class_name Ghost
 
 enum GhostState {
 	SCATTER, 
-	CHASE
+	CHASE, 
+	RUN_AWAY
 }
 
 signal direction_change(current_direction: String)
@@ -21,14 +22,17 @@ var scatter_targets: Array[Vector2i] = [
 ]
 
 @export var speed = 120
-@export var tile_map: TileMap
+@export var tile_map: MazeTileMap
 @export var color: Color
 @export var chasing_target: Node2D
 
+@onready var eyes_sprite = $EyesSprite as EyeSprite
+
 @onready var navigation_agent_2d = $NavigationAgent2D
-@onready var body_sprite = $BodySprite
+@onready var body_sprite = $BodySprite as BodySprite
 @onready var scatter_timer = $ScatterTimer
 @onready var update_chasing_target_position_timer = $UpdateChasingTargetPositionTimer 
+@onready var run_away_timer = $RunAwayTimer
 
 var backup_timer: Timer
 
@@ -139,6 +143,8 @@ func on_position_reached():
 		scatter_position_reached()
 	elif current_state == GhostState.CHASE: 
 		chase_position_reached()
+	elif current_state == GhostState.RUN_AWAY: 
+		run_away_from_pacman()
 
 func chase_position_reached(): 
 	print("KILL PACMAN")
@@ -160,15 +166,15 @@ func stop_game(won: bool):
 		update_chasing_target_position_timer.stop()
 		
 	if won:
-		print("GAME WON: Pacman je pojedel vse pike!")
+		print("GAME WON")
 	else:
-		print("GAME OVER: Duhec je ujel Pacmana!")
+		print("GAME OVER")
 
 func _on_scatter_timer_timeout() -> void:
-	start_chasing_pacman()
+	if current_state != GhostState.RUN_AWAY:
+		start_chasing_pacman()
 	
 func start_chasing_pacman(): 
-	# Če Pacmana ni, duhec preprosto nadaljuje s patruliranjem po svojih koordinatah
 	if chasing_target == null: 
 		print("Pacman ni nastavljen. Duhec nadaljuje patruliranje po koordinatah.")
 		start_scatter_loop()
@@ -182,8 +188,10 @@ func start_chasing_pacman():
 		
 	print("Duhec je uspešno zavil in začel loviti Pacmana!")
 	
-func _on_update_chasing_target_position_timer_timeout() -> void:
+func _on_update_chasing_target_position_timer_timeout():
 	if game_over:
+		return
+	if current_state == GhostState.RUN_AWAY:
 		return
 		
 	if chasing_target != null and current_state == GhostState.CHASE:
@@ -191,3 +199,23 @@ func _on_update_chasing_target_position_timer_timeout() -> void:
 		update_chasing_target_position_timer.start()
 	else:
 		start_scatter_loop()
+		
+func run_away_from_pacman(): 
+	if run_away_timer.is_stopped(): 
+		body_sprite.run_away()
+		eyes_sprite.hide_eyes()
+		run_away_timer.start()
+		current_state = GhostState.RUN_AWAY
+	
+		update_chasing_target_position_timer.stop()
+		scatter_timer.stop()
+
+	var tile = tile_map.get_random_empty_cell_position()
+
+	var local_pixels = tile_map.map_to_local(tile)
+	var global_pixels = tile_map.to_global(local_pixels)
+
+	navigation_agent_2d.target_position = global_pixels
+	
+func _on_run_away_timer_timeout() -> void:
+	start_chasing_pacman()
