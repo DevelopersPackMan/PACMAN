@@ -4,7 +4,8 @@ class_name Ghost
 enum GhostState {
 	SCATTER, 
 	CHASE, 
-	RUN_AWAY
+	RUN_AWAY,
+	EATEN
 }
 
 signal direction_change(current_direction: String)
@@ -26,6 +27,7 @@ var scatter_targets: Array[Vector2i] = [
 @export var tile_map: MazeTileMap
 @export var color: Color
 @export var chasing_target: Node2D
+@export var points_manager: PointsManager
 
 @onready var eyes_sprite = $EyesSprite as EyeSprite
 @onready var navigation_agent_2d = $NavigationAgent2D
@@ -33,6 +35,8 @@ var scatter_targets: Array[Vector2i] = [
 @onready var scatter_timer = $ScatterTimer
 @onready var update_chasing_target_position_timer = $UpdateChasingTargetPositionTimer 
 @onready var run_away_timer = $RunAwayTimer
+@onready var point_label: Label = $PointLabel
+
 
 var backup_timer: Timer
 
@@ -252,3 +256,27 @@ func _on_run_away_timer_timeout() -> void:
 	eyes_sprite.show_eyes()
 	body_sprite.move() 
 	start_chasing_pacman()
+	
+func get_eaten():
+	body_sprite.hide()
+	point_label.show()
+	eyes_sprite.show_eyes()
+	await points_manager.pause_on_ghost_eaten()
+	point_label.hide()
+	run_away_timer.stop()
+	current_state = GhostState.EATEN
+
+
+
+
+
+func _on_body_entered(body):
+	var player = body as Player
+	if current_state == GhostState.RUN_AWAY:
+		get_eaten()
+	elif current_state == GhostState.CHASE || current_state == GhostState.SCATTER:
+		set_collision_mask_value(1, false)
+		update_chasing_target_position_timer.stop()
+		player.die()
+		scatter_timer.wait_time = 600
+		start_scatter_loop()

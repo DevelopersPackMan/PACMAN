@@ -3,15 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://di7lt8ehvdxdh" path="res://Resources/Graphics/walls/wall_atlas.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://khsrvfe3d3ga" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Texture2D" uid="uid://8cjr636270dr" path="res://Resources/Graphics/maze/origmaps_2x.png" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://15feik7gh6cv" path="res://tile_map.gd" id="3_efxa6"]
+[ext_resource type="Script" path="res://tile_map.gd" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://yv4ka5fjkiw5" path="res://scene/pacman.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bm4rpnkwl8lvl" path="res://palet.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://di3ce0vr4wv41" path="res://palets_manager.gd" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cgwvdwc37kva8" path="res://scene/connector.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
-[ext_resource type="PackedScene" uid="uid://3mfprkxvdj0r" path="res://large_pallet.tscn" id="8_dg77c"]
+[ext_resource type="PackedScene" path="res://large_pallet.tscn" id="8_dg77c"]
 [ext_resource type="Texture2D" uid="uid://c2jhf1bmtgqhu" path="res://Resources/Graphics/brez_ozadja_zvezde_manj_mocno.png" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://of28gwo5i23t" path="res://points_manager.gd" id="13_ycdy4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kek77"]
 vertices = PackedVector2Array(-1.84375, -0.6171875, -1.9140625, -12, 1.078125, -12, 1.109375, -0.6171875, -1.796875, 1.9765625, 12, -0.6171875, 12, 1.96875, 1.2578125, 1.9765625, 1.2265625, 12, -1.796875, 12, -12, 1.9765625, -12, -0.5390625)
@@ -2203,12 +2204,14 @@ texture = ExtResource("9_4c57u")
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
-[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("tile_map", "chasing_target") instance=ExtResource("8_5vw27")]
+[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("tile_map", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 position = Vector2(0, -139)
 scale = Vector2(0.8, 0.8)
+speed = 120
 tile_map = NodePath("../../TileMap")
 color = Color(1, 0, 0, 1)
 chasing_target = NodePath("../../player")
+points_manager = NodePath("../../PointsManager")
 
 [node name="MovementTargets" type="Node" parent="." unique_id=386480397]
 
@@ -2227,5 +2230,8 @@ position = Vector2(-642, -642)
 
 [node name="Red4" type="Marker2D" parent="MovementTargets/RedGhost/ScatterTargets" unique_id=458144583]
 position = Vector2(-381, -651)
+
+[node name="PointsManager" type="Node" parent="." unique_id=722380662]
+script = ExtResource("13_ycdy4")
 
 [editable path="player"]
