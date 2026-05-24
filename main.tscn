@@ -2180,11 +2180,12 @@ texture = ExtResource("9_4c57u")
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
-[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("tile_map") instance=ExtResource("8_5vw27")]
+[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("tile_map", "chasing_target") instance=ExtResource("8_5vw27")]
 position = Vector2(0, -139)
 scale = Vector2(0.8, 0.8)
 tile_map = NodePath("../../TileMap")
 color = Color(1, 0, 0, 1)
+chasing_target = NodePath("../../player")
 
 [node name="MovementTargets" type="Node" parent="." unique_id=386480397]
 

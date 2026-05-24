@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dw3xx2kpcbjrs" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Right.png" id="8_bqjpw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6attn"]
-radius = 29.966648
+radius = 32.140316
 
 [sub_resource type="Animation" id="Animation_hiw70"]
 length = 0.001
@@ -56,13 +56,15 @@ script = ExtResource("1_obmiq")
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=794951695]
 texture_filter = 1
+position = Vector2(24, 24)
 scale = Vector2(4, 4)
 texture = ExtResource("1_6attn")
 script = ExtResource("3_xtt71")
 
 [node name="EyesSprite" type="Sprite2D" parent="." unique_id=953759998]
 texture_filter = 1
-scale = Vector2(4, 4)
+position = Vector2(24.000004, 24)
+scale = Vector2(3, 3)
 texture = ExtResource("2_obmiq")
 script = ExtResource("5_hiw70")
 up = ExtResource("6_pa7oq")
@@ -71,10 +73,20 @@ left = ExtResource("7_yc3kp")
 right = ExtResource("8_bqjpw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=81860719]
-position = Vector2(0, 1)
+position = Vector2(24, 27)
 shape = SubResource("CircleShape2D_6attn")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1353557442]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1328875412]
 libraries/ = SubResource("AnimationLibrary_2jh1f")
+
+[node name="ScatterTimer" type="Timer" parent="." unique_id=1432281281]
+wait_time = 8.0
+one_shot = true
+
+[node name="UpdateChasingTargetPositionTimer" type="Timer" parent="." unique_id=775546900]
+wait_time = 0.2
+
+[connection signal="timeout" from="ScatterTimer" to="." method="_on_scatter_timer_timeout"]
+[connection signal="timeout" from="UpdateChasingTargetPositionTimer" to="." method="_on_update_chasing_target_position_timer_timeout"]
