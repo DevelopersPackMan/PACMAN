@@ -1,38 +1,44 @@
 extends Area2D
 class_name Ghost
 
+enum GhostState {
+	SCATTER, 
+	CHASE
+}
+
 signal direction_change(current_direction: String)
 
 var current_scatter_index = 0
 var game_over = false
-var direction = null
+var direction = "right"
+var current_state: GhostState
 
-var scatter_targets: Array[Vector2] = [
-	Vector2(12, 9),
-	Vector2(22, 9),
-	Vector2(22, 17),
-	Vector2(12, 17)
+var scatter_targets: Array[Vector2i] = [
+	Vector2i(12, 9),
+	Vector2i(22, 9),
+	Vector2i(22, 17),
+	Vector2i(12, 17)
 ]
 
 @export var speed = 120
 @export var tile_map: TileMap
 @export var color: Color
+@export var chasing_target: Node2D
 
 @onready var navigation_agent_2d = $NavigationAgent2D
 @onready var body_sprite = $BodySprite
+@onready var scatter_timer = $ScatterTimer
+@onready var update_chasing_target_position_timer = $UpdateChasingTargetPositionTimer 
 
-# Časovanik, ki reši duhca, če se nekje zatakne
 var backup_timer: Timer
 
 func _ready():
-	# Povečala bova razdaljo, da agent lažje zazna, ko je "blizu" točke
-	navigation_agent_2d.path_desired_distance = 15.0
-	navigation_agent_2d.target_desired_distance = 15.0
+	navigation_agent_2d.path_desired_distance = 8.0
+	navigation_agent_2d.target_desired_distance = 8.0
 	navigation_agent_2d.target_reached.connect(on_position_reached)
 	
-	# Ustvarimo skriti časovnik za vsak slučaj
 	backup_timer = Timer.new()
-	backup_timer.wait_time = 4.0 # Če po 4 sekundah ne doseže točke, gre naprej
+	backup_timer.wait_time = 5.0 
 	backup_timer.one_shot = true
 	backup_timer.timeout.connect(on_position_reached)
 	add_child(backup_timer)
@@ -40,39 +46,52 @@ func _ready():
 	call_deferred("setup")
 	
 func _physics_process(delta):
-	if not game_over and navigation_agent_2d.get_navigation_map() != RID():
-		# Navigacija potrebuje stalno osveževanje cilja, da teče gladko
-		update_navigation_target()
+	if game_over:
+		return
 		
-		if not navigation_agent_2d.is_navigation_finished():
-			move_ghost(navigation_agent_2d.get_next_path_position(), delta)
+	if current_state == GhostState.CHASE and chasing_target == null:
+		print("Pacman ni najden! Duhec se vrača na patruliranje.")
+		start_scatter_loop()
+		return
+
+	if navigation_agent_2d.is_navigation_finished():
+		return
+		
+	var next_path_pos = navigation_agent_2d.get_next_path_position()
+	move_ghost(next_path_pos, delta)
 
 func move_ghost(next_position: Vector2, delta: float):
-	var current_ghost_position = global_position
-	var move_direction = (next_position - current_ghost_position).normalized()
+	var target_vector = next_position - global_position
 	
-	calculate_direction(move_direction)
+	if target_vector.length() < 1.0:
+		return
+
+	var move_direction = target_vector.normalized()
 	
-	var new_velocity = move_direction * speed * delta
-	position += new_velocity
-	
-	navigation_agent_2d.velocity = new_velocity
+	var grid_direction = Vector2.ZERO
+	if abs(target_vector.x) > abs(target_vector.y):
+		grid_direction.x = sign(target_vector.x)
+	else:
+		grid_direction.y = sign(target_vector.y)
+	calculate_direction(grid_direction)
+
+	var velocity = move_direction * speed
+	navigation_agent_2d.set_velocity(velocity)
+	global_position += velocity * delta
 		
 func calculate_direction(move_direction: Vector2):
 	var current_direction = direction
 	
-	if abs(move_direction.x) > abs(move_direction.y):
-		if move_direction.x > 0.1:
-			current_direction = "right"
-		elif move_direction.x < -0.1:
-			current_direction = "left"
-	else:
-		if move_direction.y > 0.1:
-			current_direction = "down"
-		elif move_direction.y < -0.1:
-			current_direction = "up"
+	if move_direction.x > 0:
+		current_direction = "right"
+	elif move_direction.x < 0:
+		current_direction = "left"
+	elif move_direction.y > 0:
+		current_direction = "down"
+	elif move_direction.y < 0:
+		current_direction = "up"
 	
-	if current_direction != direction and current_direction != null:
+	if current_direction != direction:
 		direction = current_direction
 		direction_change.emit(direction)
 	
@@ -80,47 +99,95 @@ func setup():
 	if tile_map == null:
 		print("NAPAKA: TileMap ni nastavljen v Inspectorju duhca!")
 		return
-		
+	
 	var nav_map = tile_map.get_navigation_map(0)
 	navigation_agent_2d.set_navigation_map(nav_map)
-	NavigationServer2D.agent_set_map(navigation_agent_2d.get_rid(), nav_map)
 	
 	await get_tree().physics_frame
 	await get_tree().physics_frame
+	
+	var current_tile = tile_map.local_to_map(tile_map.to_local(global_position))
+	global_position = tile_map.to_global(tile_map.map_to_local(current_tile))
 	
 	start_scatter_loop()
 
 func update_navigation_target():
-	if scatter_targets.size() > 0:
+	if scatter_targets.size() > 0 and tile_map != null:
 		var tile_coords = scatter_targets[current_scatter_index]
-		var global_pixels = (tile_coords * 24) + Vector2(12, 12)
+		var local_pixels = tile_map.map_to_local(tile_coords)
+		var global_pixels = tile_map.to_global(local_pixels)
+		
 		navigation_agent_2d.target_position = global_pixels
 	
 func start_scatter_loop():
+	current_state = GhostState.SCATTER
+	if update_chasing_target_position_timer != null:
+		update_chasing_target_position_timer.stop()
+		
+	scatter_timer.start()
+	
 	if game_over:
 		return
 		
 	update_navigation_target()
-	print("Duhec potuje proti indeksu: ", current_scatter_index, " (Koordinate: ", scatter_targets[current_scatter_index], ")")
+	print("Duhec patrulira proti celici: ", scatter_targets[current_scatter_index])
 	
 	backup_timer.start()
 
 func on_position_reached():
-	if game_over:
-		return
-		
-	backup_timer.stop()
-	
-	if scatter_targets.size() > 0:
-		current_scatter_index = (current_scatter_index + 1) % scatter_targets.size()
-		print("🔄 TOČKA DOSEŽENA! Naslednji indeks v zanki: ", current_scatter_index)
-		
-		start_scatter_loop()
+	if current_state == GhostState.SCATTER: 
+		scatter_position_reached()
+	elif current_state == GhostState.CHASE: 
+		chase_position_reached()
 
+func chase_position_reached(): 
+	print("KILL PACMAN")
+	
+func scatter_position_reached(): 
+	if current_scatter_index < scatter_targets.size() - 1: 
+		current_scatter_index += 1
+	else:	
+		current_scatter_index = 0
+
+	update_navigation_target()
+	backup_timer.start()
+					
 func stop_game(won: bool):
 	game_over = true
 	backup_timer.stop()
+	scatter_timer.stop()
+	if update_chasing_target_position_timer != null:
+		update_chasing_target_position_timer.stop()
+		
 	if won:
 		print("GAME WON: Pacman je pojedel vse pike!")
 	else:
 		print("GAME OVER: Duhec je ujel Pacmana!")
+
+func _on_scatter_timer_timeout() -> void:
+	start_chasing_pacman()
+	
+func start_chasing_pacman(): 
+	# Če Pacmana ni, duhec preprosto nadaljuje s patruliranjem po svojih koordinatah
+	if chasing_target == null: 
+		print("Pacman ni nastavljen. Duhec nadaljuje patruliranje po koordinatah.")
+		start_scatter_loop()
+		return
+		
+	current_state = GhostState.CHASE
+	navigation_agent_2d.target_position = chasing_target.global_position
+	
+	if update_chasing_target_position_timer != null:
+		update_chasing_target_position_timer.start()
+		
+	print("Duhec je uspešno zavil in začel loviti Pacmana!")
+	
+func _on_update_chasing_target_position_timer_timeout() -> void:
+	if game_over:
+		return
+		
+	if chasing_target != null and current_state == GhostState.CHASE:
+		navigation_agent_2d.target_position = chasing_target.global_position
+		update_chasing_target_position_timer.start()
+	else:
+		start_scatter_loop()
