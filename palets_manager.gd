@@ -2,7 +2,9 @@ extends Node
 
 var total_pellets_count 
 var pellets_eaten = 0
+
 @onready var ui: UI = $"../UI" as UI
+@export var ghost_array: Array[Ghost]
 
 func _ready():
 	var pellets = self.get_children() as Array[Pellet]
@@ -13,6 +15,10 @@ func _ready():
 func on_pellet_eaten(should_allow_eating_ghosts: bool):
 	pellets_eaten += 1
 	
+	if should_allow_eating_ghosts: 
+		for ghost in ghost_array: 
+			ghost.run_away_from_pacman()
+			
 	if pellets_eaten == total_pellets_count:
 		ui.game_won()
 	
