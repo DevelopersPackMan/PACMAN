@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dcgg14tac7mou" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Up.png" id="6_pa7oq"]
 [ext_resource type="Texture2D" uid="uid://cvgpjfpg6poi1" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Left.png" id="7_yc3kp"]
 [ext_resource type="Texture2D" uid="uid://dw3xx2kpcbjrs" path="res://Resources/Graphics/Ghost/Ghost_Eyes_Right.png" id="8_bqjpw"]
+[ext_resource type="Texture2D" uid="uid://cvto5sswde2ik" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_White_01.png" id="9_neao1"]
+[ext_resource type="Texture2D" uid="uid://d0uu218xbjg0r" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_White_02.png" id="10_2pguw"]
 [ext_resource type="Texture2D" uid="uid://bd4p43ndtu2v8" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_Blue_01.png" id="10_bqjpw"]
 [ext_resource type="Texture2D" uid="uid://blq70pt5we2b8" path="res://Resources/Graphics/Ghost/Ghost_Vulnerable_Blue_02.png" id="11_wacvi"]
 
@@ -30,6 +32,21 @@ tracks/0/keys = {
 "values": [ExtResource("1_6attn")]
 }
 
+[sub_resource type="Animation" id="Animation_bqjpw"]
+resource_name = "blinking"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:texture")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("9_neao1"), ExtResource("10_2pguw"), ExtResource("11_wacvi"), ExtResource("10_bqjpw")]
+}
+
 [sub_resource type="Animation" id="Animation_jw18l"]
 resource_name = "moving"
 length = 0.5
@@ -41,7 +58,7 @@ tracks/0/path = NodePath("BodySprite:texture")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.23333333),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("1_6attn"), ExtResource("5_kjq22")]
@@ -67,6 +84,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2jh1f"]
 _data = {
 &"RESET": SubResource("Animation_hiw70"),
+&"blinking": SubResource("Animation_bqjpw"),
 &"moving": SubResource("Animation_jw18l"),
 &"run_away": SubResource("Animation_pa7oq")
 }

@@ -13,6 +13,7 @@ var current_scatter_index = 0
 var game_over = false
 var direction = "right"
 var current_state: GhostState
+var is_blinking = false
 
 var scatter_targets: Array[Vector2i] = [
 	Vector2i(12, 9),
@@ -27,7 +28,6 @@ var scatter_targets: Array[Vector2i] = [
 @export var chasing_target: Node2D
 
 @onready var eyes_sprite = $EyesSprite as EyeSprite
-
 @onready var navigation_agent_2d = $NavigationAgent2D
 @onready var body_sprite = $BodySprite as BodySprite
 @onready var scatter_timer = $ScatterTimer
@@ -50,6 +50,10 @@ func _ready():
 	call_deferred("setup")
 	
 func _physics_process(delta):
+	# Preverjamo preostali čas: če teče in je pod polovico ter še ne utripa, sprožimo utripanje
+	if not run_away_timer.is_stopped() and run_away_timer.time_left < (run_away_timer.wait_time / 2) and not is_blinking: 
+		start_blinking()
+		
 	if game_over:
 		return
 		
@@ -144,6 +148,7 @@ func on_position_reached():
 	elif current_state == GhostState.CHASE: 
 		chase_position_reached()
 	elif current_state == GhostState.RUN_AWAY: 
+		# Ko med begom doseže naključno točko, izbere naslednjo celico
 		run_away_from_pacman()
 
 func chase_position_reached(): 
@@ -162,6 +167,7 @@ func stop_game(won: bool):
 	game_over = true
 	backup_timer.stop()
 	scatter_timer.stop()
+	run_away_timer.stop()
 	if update_chasing_target_position_timer != null:
 		update_chasing_target_position_timer.stop()
 		
@@ -173,12 +179,29 @@ func stop_game(won: bool):
 func _on_scatter_timer_timeout() -> void:
 	if current_state != GhostState.RUN_AWAY:
 		start_chasing_pacman()
+
+## TO FUNKCIJO POKLIČE KODA IGRE, KO PACMAN POJE VELIKO PIKO
+func trigger_run_away():
+	if game_over:
+		return
+		
+	print("Sprožen beg preko velike pike!")
+	current_state = GhostState.RUN_AWAY
+	is_blinking = false # Ponastavimo utripanje za nov beg
 	
+	# Pokličemo funkcijo bega, ki bo takoj zamenjala grafiko in izbrala pot
+	run_away_from_pacman()
+
 func start_chasing_pacman(): 
 	if chasing_target == null: 
 		print("Pacman ni nastavljen. Duhec nadaljuje patruliranje po koordinatah.")
 		start_scatter_loop()
 		return
+		
+	# Ponastavimo originalni izgled duhca nazaj na njegove prave barve
+	body_sprite.modulate = color
+	body_sprite.animation_player.play("moving")
+	eyes_sprite.show_eyes()
 		
 	current_state = GhostState.CHASE
 	navigation_agent_2d.target_position = chasing_target.global_position
@@ -189,9 +212,7 @@ func start_chasing_pacman():
 	print("Duhec je uspešno zavil in začel loviti Pacmana!")
 	
 func _on_update_chasing_target_position_timer_timeout():
-	if game_over:
-		return
-	if current_state == GhostState.RUN_AWAY:
+	if game_over or current_state == GhostState.RUN_AWAY:
 		return
 		
 	if chasing_target != null and current_state == GhostState.CHASE:
@@ -201,21 +222,33 @@ func _on_update_chasing_target_position_timer_timeout():
 		start_scatter_loop()
 		
 func run_away_from_pacman(): 
+	# POPRAVEK: Sprememba barve in skrivanje oči se zgodita TAKOJ, ko se časovnik zažene
 	if run_away_timer.is_stopped(): 
 		body_sprite.run_away()
 		eyes_sprite.hide_eyes()
+		run_away_timer.wait_time = 8.0
 		run_away_timer.start()
-		current_state = GhostState.RUN_AWAY
 	
-		update_chasing_target_position_timer.stop()
+		if update_chasing_target_position_timer != null:
+			update_chasing_target_position_timer.stop()
 		scatter_timer.stop()
 
-	var tile = tile_map.get_random_empty_cell_position()
+	if tile_map == null:
+		return
 
+	var tile = tile_map.get_random_empty_cell_position()
 	var local_pixels = tile_map.map_to_local(tile)
 	var global_pixels = tile_map.to_global(local_pixels)
 
 	navigation_agent_2d.target_position = global_pixels
+	backup_timer.start()
+	
+func start_blinking(): 
+	is_blinking = true
+	body_sprite.start_blinking()
 	
 func _on_run_away_timer_timeout() -> void:
+	is_blinking = false
+	eyes_sprite.show_eyes()
+	body_sprite.move() 
 	start_chasing_pacman()
