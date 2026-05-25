@@ -1,22 +1,23 @@
 [gd_scene format=3 uid="uid://3mfprkxvdj0r"]
 
 [ext_resource type="Script" uid="uid://7xid1rcxwqey" path="res://palet.gd" id="1_the1a"]
-[ext_resource type="Texture2D" uid="uid://3oq4tq11u8eo" path="res://large_pallet.png" id="1_vextk"]
+[ext_resource type="Texture2D" uid="uid://c0752a5f7f7am" path="res://large_pellet_red.png" id="2_the1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vextk"]
-size = Vector2(24, 24)
+size = Vector2(16.333332, 16.166668)
 
 [node name="Area2D" type="Area2D" unique_id=1291715781]
+scale = Vector2(1.2, 1.2)
 script = ExtResource("1_the1a")
 should_allow_eating_ghosts = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=868870095]
 texture_filter = 1
 scale = Vector2(2, 2)
-texture = ExtResource("1_vextk")
+texture = ExtResource("2_the1a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=709088865]
-position = Vector2(-6, -14)
+position = Vector2(-0.16666652, -13.916667)
 shape = SubResource("RectangleShape2D_vextk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
