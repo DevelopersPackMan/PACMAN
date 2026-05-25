@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://ddigx3elc4lc6" path="res://large_pellet.tscn" id="8_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://c2jhf1bmtgqhu" path="res://Resources/Graphics/brez_ozadja_zvezde_manj_mocno.png" id="9_4c57u"]
+[ext_resource type="Resource" uid="uid://dt2bwv6pc0fbh" path="res://Resources/blue_movement_targets.tres" id="13_w48qg"]
 [ext_resource type="Script" uid="uid://of28gwo5i23t" path="res://points_manager.gd" id="13_ycdy4"]
-[ext_resource type="Script" uid="uid://txudig2duw0e" path="res://Resources/movement_target.gd" id="15_vivmo"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kek77"]
 vertices = PackedVector2Array(-1.84375, -0.6171875, -1.9140625, -12, 1.078125, -12, 1.109375, -0.6171875, -1.796875, 1.9765625, 12, -0.6171875, 12, 1.96875, 1.2578125, 1.9765625, 1.2265625, 12, -1.796875, 12, -12, 1.9765625, -12, -0.5390625)
@@ -2336,18 +2336,18 @@ texture = ExtResource("9_4c57u")
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
-[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("tile_map", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 position = Vector2(0, -139)
-scatter_targets = [NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red1"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red2"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red3"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red4")]
+tile_map = NodePath("../../TileMap")
 color = Color(1, 0, 0, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
 
 [node name="Home" type="Node" parent="Ghosts/RedGhost" unique_id=455260006]
 
-[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
-at_home_targets = [NodePath("../../MovementTargets/BlueGhost/Scatter/Home/Bottom"), NodePath("../../MovementTargets/BlueGhost/Scatter/Home/Top")]
-scatter_targets = [NodePath("../../MovementTargets/BlueGhost/Scatter/Blue1"), NodePath("../../MovementTargets/BlueGhost/Scatter/Blue2"), NodePath("../../MovementTargets/BlueGhost/Scatter/Blue3"), NodePath("../../MovementTargets/BlueGhost/Scatter/Blue4")]
+[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("tile_map", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+movement_targets = ExtResource("13_w48qg")
+tile_map = NodePath("../../TileMap")
 color = Color(0, 0, 1, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
@@ -2386,18 +2386,7 @@ position = Vector2(364, -644)
 [node name="Blue4" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter" unique_id=1367080688]
 position = Vector2(652, -451)
 
-[node name="Home" type="Node" parent="MovementTargets/BlueGhost/Scatter" unique_id=1815864219]
-
-[node name="Bottom" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter/Home" unique_id=1331214621]
-position = Vector2(127, -70)
-
-[node name="Top" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter/Home" unique_id=1539524022]
-position = Vector2(126, 59)
-
 [node name="PointsManager" type="Node" parent="." unique_id=722380662]
 script = ExtResource("13_ycdy4")
-
-[node name="GhostTargets" type="Node2D" parent="." unique_id=2076883381]
-script = ExtResource("15_vivmo")
 
 [editable path="player"]

@@ -30,7 +30,6 @@ func reset_player():
 	if animation_player.has_animation("Default"):
 		animation_player.play("Default")
 	
-	# Če si pozabila nastaviti start_position v Inspectorju, se igra ne bo sesula:
 	if start_position != null:
 		position = start_position.position
 	else:
@@ -43,7 +42,6 @@ func reset_player():
 func _physics_process(delta):
 	get_input()
 	
-	# Logika za premikanje in zavijanje
 	if movement_direction == Vector2.ZERO:
 		movement_direction = next_movement_direction
 		

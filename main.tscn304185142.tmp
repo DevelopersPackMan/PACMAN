@@ -2336,18 +2336,21 @@ texture = ExtResource("9_4c57u")
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
-[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "tile_map", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 position = Vector2(0, -139)
+at_home_targets = []
 scatter_targets = [NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red1"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red2"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red3"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red4")]
+tile_map = NodePath("../../TileMap")
 color = Color(1, 0, 0, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
 
 [node name="Home" type="Node" parent="Ghosts/RedGhost" unique_id=455260006]
 
-[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "tile_map", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 at_home_targets = [NodePath("../../MovementTargets/BlueGhost/Scatter/Home/Bottom"), NodePath("../../MovementTargets/BlueGhost/Scatter/Home/Top")]
 scatter_targets = [NodePath("../../MovementTargets/BlueGhost/Scatter/Blue1"), NodePath("../../MovementTargets/BlueGhost/Scatter/Blue2"), NodePath("../../MovementTargets/BlueGhost/Scatter/Blue3"), NodePath("../../MovementTargets/BlueGhost/Scatter/Blue4")]
+tile_map = NodePath("../../TileMap")
 color = Color(0, 0, 1, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")

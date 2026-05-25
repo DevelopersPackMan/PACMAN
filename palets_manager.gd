@@ -17,10 +17,9 @@ func on_pellet_eaten(should_allow_eating_ghosts: bool):
 	
 	if should_allow_eating_ghosts: 
 		for ghost in ghost_array: 
-			ghost.run_away_from_pacman()
+			if ghost != null: 
+				ghost.trigger_run_away()
 			
 	if pellets_eaten == total_pellets_count:
 		ui.game_won()
-	
-
 	
