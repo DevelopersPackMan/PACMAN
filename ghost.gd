@@ -23,7 +23,9 @@ var scatter_targets: Array[Vector2i] = [
 	Vector2i(12, 17)
 ]
 
+@export var eaten_speed = 240
 @export var speed = 120
+@export var movement_targets: Resource 
 @export var tile_map: MazeTileMap
 @export var color: Color
 @export var chasing_target: Node2D
@@ -74,6 +76,7 @@ func _physics_process(delta):
 
 func move_ghost(next_position: Vector2, delta: float):
 	var target_vector = next_position - global_position
+	var current_speed = eaten_speed if current_state == GhostState.EATEN else speed
 	
 	if target_vector.length() < 1.0:
 		return
@@ -154,6 +157,9 @@ func on_position_reached():
 	elif current_state == GhostState.RUN_AWAY: 
 		# Ko med begom doseže naključno točko, izbere naslednjo celico
 		run_away_from_pacman()
+	elif current_state == GhostState.EATEN:
+		start_chasing_pacman_after_being_eaten()
+		
 
 func chase_position_reached(): 
 	print("KILL PACMAN")
@@ -224,7 +230,12 @@ func _on_update_chasing_target_position_timer_timeout():
 		update_chasing_target_position_timer.start()
 	else:
 		start_scatter_loop()
-		
+
+func start_chasing_pacman_after_being_eaten():
+	start_chasing_pacman()
+	body_sprite.show()
+	body_sprite.move()
+
 func run_away_from_pacman(): 
 	# POPRAVEK: Sprememba barve in skrivanje oči se zgodita TAKOJ, ko se časovnik zažene
 	if run_away_timer.is_stopped(): 
@@ -265,9 +276,7 @@ func get_eaten():
 	point_label.hide()
 	run_away_timer.stop()
 	current_state = GhostState.EATEN
-
-
-
+	navigation_agent_2d.target_position = movement_targets.at_home_targets[0].position
 
 
 func _on_body_entered(body):
