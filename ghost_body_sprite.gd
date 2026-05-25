@@ -16,3 +16,4 @@ func run_away():
 
 func start_blinking(): 
 	animation_player.play("blinking")
+	
