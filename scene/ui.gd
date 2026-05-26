@@ -17,5 +17,7 @@ func _input(event):
 
 
 func _on_button_pressed() -> void:
-	get_parent().get_node("TileMap").modulate = Color(GlobalSettings.brightness, GlobalSettings.brightness, GlobalSettings.brightness, 1.0)
+	print("BACK pritisnjen!")
+	if get_parent().has_node("TileMap"):
+		get_parent().get_node("TileMap").modulate = Color(GlobalSettings.brightness, GlobalSettings.brightness, GlobalSettings.brightness, 1.0)
 	hide()
