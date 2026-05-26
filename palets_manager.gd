@@ -3,7 +3,7 @@ extends Node
 var total_pellets_count 
 var pellets_eaten = 0
 
-@onready var ui: UI = $"../UI" as UI
+@onready var ui = $"../UI"
 @export var ghost_array: Array[Ghost]
 
 func _ready():
