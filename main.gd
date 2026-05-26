@@ -2,7 +2,15 @@ extends Node
 
 func _ready():
 	call_deferred("connect_signals")
+	# Dodaj tole vrstico:
+	apply_brightness()
 
+func apply_brightness():
+	# Preverimo, če imamo CanvasModulate v tej sceni
+	if has_node("CanvasModulate"):
+		var b = GlobalSettings.brightness
+		$CanvasModulate.color = Color(b, b, b, 1.0)
+		
 func connect_signals():
 	$player.player_died.connect(_on_player_died)
 	

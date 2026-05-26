@@ -2,21 +2,19 @@
 
 [ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="1_onfsl"]
 [ext_resource type="Script" uid="uid://bgscrpfkwl8wv" path="res://scene/ui.gd" id="1_s2f8l"]
+[ext_resource type="Texture2D" uid="uid://d352bx28ibeqs" path="res://Resources/Graphics/ColourPosode/modra_barva.png" id="3_1ipsn"]
 [ext_resource type="Texture2D" uid="uid://dj5hba3l6obdr" path="res://Resources/Graphics/settings_pixel_edges.png" id="3_ytdjg"]
+[ext_resource type="Texture2D" uid="uid://d2asafaa6acpi" path="res://Resources/Graphics/ColourPosode/oranzna_barva.png" id="4_j2m3p"]
 [ext_resource type="Script" uid="uid://cw7hqptvmgclw" path="res://scene/h_slider.gd" id="4_xh8xk"]
+[ext_resource type="Texture2D" uid="uid://df55mo2r8ee1a" path="res://Resources/Graphics/ColourPosode/rdeca_barva.png" id="5_4auga"]
 [ext_resource type="Script" uid="uid://6gb2upg84iym" path="res://scene/h_slider_2.gd" id="5_ytdjg"]
+[ext_resource type="Texture2D" uid="uid://c235bj0tbsd7n" path="res://Resources/Graphics/crno ozadje.png" id="6_1ipsn"]
+[ext_resource type="Texture2D" uid="uid://bb3jorj03aelm" path="res://Resources/Graphics/ColourPosode/rumena_barva.png" id="6_vgdfm"]
+[ext_resource type="Texture2D" uid="uid://b60hxwkf214nh" path="res://Resources/Graphics/ColourPosode/vijolicna_barva.png" id="7_nqtmw"]
+[ext_resource type="Texture2D" uid="uid://bwmswlk65ny8n" path="res://Resources/Graphics/ColourPosode/zelena_barva.png" id="8_tjyu7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijgdr"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsfh4"]
+bg_color = Color(0.6, 0.6, 0.6, 0.007843138)
 
 [sub_resource type="Theme" id="Theme_s2f8l"]
 default_font = ExtResource("1_onfsl")
@@ -25,46 +23,7 @@ default_font_size = 40
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1247300037]
 script = ExtResource("1_s2f8l")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2030652078]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=808055901]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer" unique_id=1549455273]
-custom_minimum_size = Vector2(1152, 648)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ijgdr")
-
-[node name="GameLabel" type="Label" parent="MarginContainer/CenterContainer/Panel" unique_id=816781355]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_s2f8l")
-text = "Game won!!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="TextureRect" type="TextureRect" parent="." unique_id=40990432]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -77,65 +36,6 @@ grow_vertical = 2
 texture = ExtResource("3_ytdjg")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="TextureRect" unique_id=991638792]
-layout_mode = 0
-offset_left = 430.0
-offset_top = 110.0
-offset_right = 950.0
-offset_bottom = 240.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 60
-text = "SETTINGS"
-
-[node name="Label2" type="Label" parent="TextureRect" unique_id=102294364]
-layout_mode = 0
-offset_left = 296.0
-offset_top = 230.0
-offset_right = 835.0
-offset_bottom = 334.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 40
-text = "Brightness"
-
-[node name="HSlider" type="HSlider" parent="TextureRect" unique_id=261014462]
-layout_mode = 0
-offset_left = 657.0
-offset_top = 189.0
-offset_right = 780.0
-offset_bottom = 255.0
-scale = Vector2(2, 2)
-value = 100.0
-script = ExtResource("4_xh8xk")
-
-[node name="Label3" type="Label" parent="TextureRect" unique_id=102572069]
-layout_mode = 0
-offset_left = 298.0
-offset_top = 284.0
-offset_right = 461.0
-offset_bottom = 336.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 40
-text = "Volume"
-
-[node name="HSlider2" type="HSlider" parent="TextureRect" unique_id=1642352997]
-layout_mode = 0
-offset_left = 654.0
-offset_top = 244.0
-offset_right = 777.0
-offset_bottom = 310.0
-scale = Vector2(2, 2)
-script = ExtResource("5_ytdjg")
-
-[node name="Button" type="Button" parent="TextureRect" unique_id=377054438]
-layout_mode = 0
-offset_left = 535.0
-offset_top = 471.0
-offset_right = 623.0
-offset_bottom = 519.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 30
-text = "BACK"
-
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1388249783]
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,4 +45,178 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[connection signal="pressed" from="TextureRect/Button" to="." method="_on_button_pressed"]
+[node name="gameWon" type="TextureRect" parent="." unique_id=1150192898]
+visible = false
+offset_left = 2.0
+offset_top = -115.0
+offset_right = 1154.0
+offset_bottom = 785.0
+mouse_filter = 2
+texture = ExtResource("6_1ipsn")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2030652078]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -165.0
+offset_right = 107.0
+offset_bottom = -133.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=808055901]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer" unique_id=1549455273]
+visible = false
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsfh4")
+
+[node name="GameLabel" type="Label" parent="MarginContainer/CenterContainer/Panel" unique_id=816781355]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -349.5
+offset_top = 10.0
+offset_right = 157.5
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_s2f8l")
+theme_override_font_sizes/font_size = 80
+text = "Game won!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnModra" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1770538289]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 507.0
+offset_right = 506.0
+offset_bottom = 607.0
+texture = ExtResource("3_1ipsn")
+expand_mode = 1
+
+[node name="BtnOranzna" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=752765454]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 508.0
+offset_right = 403.0
+offset_bottom = 608.0
+texture = ExtResource("4_j2m3p")
+expand_mode = 1
+
+[node name="BtnRdeca" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1928487794]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 507.0
+offset_right = 296.0
+offset_bottom = 607.0
+texture = ExtResource("5_4auga")
+expand_mode = 1
+
+[node name="BtnRumnena" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=876223089]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 506.0
+offset_right = 605.0
+offset_bottom = 606.0
+texture = ExtResource("6_vgdfm")
+expand_mode = 1
+
+[node name="BtnVijočlicna" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1381484316]
+layout_mode = 0
+offset_left = 591.0
+offset_top = 506.0
+offset_right = 691.0
+offset_bottom = 606.0
+texture = ExtResource("7_nqtmw")
+expand_mode = 1
+
+[node name="BtnZelena" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1132355437]
+layout_mode = 0
+offset_left = 682.0
+offset_top = 506.0
+offset_right = 782.0
+offset_bottom = 606.0
+texture = ExtResource("8_tjyu7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/Panel" unique_id=1394933257]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 454.0
+offset_right = 791.0
+offset_bottom = 494.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 30
+text = "Izberi barvo za naslednji level:"
+
+[node name="Label" type="Label" parent="." unique_id=991638792]
+offset_left = 433.0
+offset_top = 111.0
+offset_right = 953.0
+offset_bottom = 241.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 60
+text = "SETTINGS"
+
+[node name="Label2" type="Label" parent="." unique_id=102294364]
+offset_left = 299.0
+offset_top = 231.0
+offset_right = 838.0
+offset_bottom = 335.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 40
+text = "Brightness"
+
+[node name="HSlider" type="HSlider" parent="." unique_id=261014462]
+offset_left = 660.0
+offset_top = 190.0
+offset_right = 783.0
+offset_bottom = 256.0
+scale = Vector2(2, 2)
+value = 100.0
+script = ExtResource("4_xh8xk")
+
+[node name="Label3" type="Label" parent="." unique_id=102572069]
+offset_left = 301.0
+offset_top = 285.0
+offset_right = 464.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 40
+text = "Volume"
+
+[node name="HSlider2" type="HSlider" parent="." unique_id=1642352997]
+offset_left = 657.0
+offset_top = 245.0
+offset_right = 780.0
+offset_bottom = 311.0
+scale = Vector2(2, 2)
+script = ExtResource("5_ytdjg")
+
+[node name="Button" type="Button" parent="." unique_id=377054438]
+offset_left = 538.0
+offset_top = 472.0
+offset_right = 626.0
+offset_bottom = 520.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 30
+text = "BACK"
+
+[node name="Britness" type="CanvasModulate" parent="." unique_id=1977255578 groups=["svetlost"]]
+
+[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_brightness_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
