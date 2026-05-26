@@ -10,7 +10,11 @@ func game_won():
 	print("KLIK: Funkcija game_won() v UI se je uspešno zagnala!")
 	self.show() 
 	center_container.show()
-
+	var player = get_parent().get_node("player")
+	var pellets = get_parent().get_node("Pellets")
+	if player and pellets:
+		$MarginContainer/CenterContainer/Panel/GameLabel.text = "ZMAGAL SI!\nŽivljenja: " + str(player.lifes) + "\nPikice: " + str(pellets.pellets_eaten)
+		
 func _input(event):
 	if event.is_action_pressed("open_settings"):
 		hide()

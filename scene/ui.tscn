@@ -37,7 +37,6 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=808055901]
-visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer/CenterContainer" unique_id=1549455273]
@@ -65,6 +64,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=40990432]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

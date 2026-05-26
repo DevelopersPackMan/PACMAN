@@ -17,6 +17,7 @@ var game_over = false
 var direction = "right"
 var current_state: GhostState
 var is_blinking = false
+var sent_home_by_player = false
 
 @export var respawn_home_target: Node2D
 @export var at_home_targets: Array[Node2D] = []
@@ -277,6 +278,14 @@ func start_chasing_pacman():
 		update_chasing_target_position_timer.start()
 
 func start_chasing_pacman_after_being_eaten():
+	if sent_home_by_player:
+		# Preveri ali ima player še življenja
+		if chasing_target != null:
+			var player = chasing_target as Player
+			if player != null and player.lifes <= 0:
+				return  # game over, ostane doma
+		sent_home_by_player = false  # resetiraj za naslednjo rundo
+	
 	set_deferred("monitoring", true)
 	set_deferred("monitorable", true)
 	
@@ -290,7 +299,6 @@ func start_chasing_pacman_after_being_eaten():
 		eyes_sprite.show_eyes()
 		eyes_sprite.show()
 
-	# Ko je duh pojeden, gre nazaj v stanje STARTING_AT_HOME in takoj sproži izhod
 	current_state = GhostState.STARTING_AT_HOME
 	is_leaving_home_after_eaten = true
 	leave_home_completely()
@@ -400,7 +408,7 @@ func check_if_home_reached():
 			backup_timer.start()
 	else:
 		start_scatter_loop()
-				
+		
 func _on_body_entered(body):
 	if game_over or current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return
@@ -414,9 +422,19 @@ func _on_body_entered(body):
 		return 
 		
 	elif current_state == GhostState.CHASE or current_state == GhostState.SCATTER:
-		set_collision_mask_value(1, false)
-		if update_chasing_target_position_timer != null:
-			update_chasing_target_position_timer.stop()
+		# NOVA LOGIKA - duh gre domov po zadetku in ostane tam
 		player.die()
-		scatter_timer.wait_time = 600
-		start_scatter_loop()
+		sent_home_by_player = true
+		get_eaten()
+		
+		# STARA LOGIKA 1 - duh gre domov po zadetku (brez ostajanja)
+		#player.die()
+		#get_eaten()
+		
+		# STARA LOGIKA 2 - originalna sošolkina koda
+		#set_collision_mask_value(1, false)
+		#if update_chasing_target_position_timer != null:
+		#	update_chasing_target_position_timer.stop()
+		#player.die()
+		#scatter_timer.wait_time = 600
+		#start_scatter_loop()
