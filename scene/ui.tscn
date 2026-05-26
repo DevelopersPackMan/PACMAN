@@ -3,8 +3,8 @@
 [ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="1_onfsl"]
 [ext_resource type="Script" uid="uid://bgscrpfkwl8wv" path="res://scene/ui.gd" id="1_s2f8l"]
 [ext_resource type="Texture2D" uid="uid://dj5hba3l6obdr" path="res://Resources/Graphics/settings_pixel_edges.png" id="3_ytdjg"]
-[ext_resource type="Script" path="res://scene/h_slider.gd" id="4_xh8xk"]
-[ext_resource type="Script" path="res://scene/h_slider_2.gd" id="5_ytdjg"]
+[ext_resource type="Script" uid="uid://cw7hqptvmgclw" path="res://scene/h_slider.gd" id="4_xh8xk"]
+[ext_resource type="Script" uid="uid://6gb2upg84iym" path="res://scene/h_slider_2.gd" id="5_ytdjg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijgdr"]
 bg_color = Color(0, 0, 0, 1)
