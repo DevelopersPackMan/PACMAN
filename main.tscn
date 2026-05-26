@@ -13,7 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://ddigx3elc4lc6" path="res://large_pellet.tscn" id="8_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://c2jhf1bmtgqhu" path="res://Resources/Graphics/brez_ozadja_zvezde_manj_mocno.png" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://of28gwo5i23t" path="res://points_manager.gd" id="13_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://c638jw2vuahjb" path="res://Resources/Graphics/lifes/zivljenje.png" id="15_2cqfq"]
 [ext_resource type="Script" uid="uid://txudig2duw0e" path="res://Resources/movement_target.gd" id="15_vivmo"]
+[ext_resource type="Script" uid="uid://boh20lmiixtwb" path="res://lifes.gd" id="15_yaehf"]
+[ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="17_yaehf"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kek77"]
 vertices = PackedVector2Array(-1.84375, -0.6171875, -1.9140625, -12, 1.078125, -12, 1.109375, -0.6171875, -1.796875, 1.9765625, 12, -0.6171875, 12, 1.96875, 1.2578125, 1.9765625, 1.2265625, 12, -1.796875, 12, -12, 1.9765625, -12, -0.5390625)
@@ -379,6 +382,9 @@ navigation_layer_0/layers = 1
 custom_data_layer_0/name = "isEmpty"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vivmo"]
+bg_color = Color(0.005481924, 0.11178515, 0.26478532, 1)
 
 [node name="main" type="Node" unique_id=98923383]
 script = ExtResource("1_5vw27")
@@ -2311,8 +2317,10 @@ position = Vector2(-669, -506)
 position = Vector2(651, -506)
 
 [node name="Connector" parent="." unique_id=168904100 instance=ExtResource("5_lquwl")]
+visible = false
 
 [node name="UI" parent="." unique_id=1247300037 instance=ExtResource("7_272bh")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1236379389]
 layer = -1
@@ -2445,5 +2453,46 @@ script = ExtResource("13_ycdy4")
 
 [node name="GhostTargets" type="Node2D" parent="." unique_id=2076883381]
 script = ExtResource("15_vivmo")
+
+[node name="Panel" type="Panel" parent="." unique_id=646806730]
+visible = false
+offset_left = -1.0
+offset_right = 199.0
+offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vivmo")
+
+[node name="lifes" type="CanvasLayer" parent="Panel" unique_id=1768158201]
+script = ExtResource("15_yaehf")
+
+[node name="Heart2" type="TextureRect" parent="Panel/lifes" unique_id=554515595]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("15_2cqfq")
+expand_mode = 1
+
+[node name="Heart1" type="TextureRect" parent="Panel/lifes" unique_id=1506333634]
+offset_left = 60.0
+offset_top = 10.0
+offset_right = 130.0
+offset_bottom = 80.0
+texture = ExtResource("15_2cqfq")
+expand_mode = 1
+
+[node name="Heart3" type="TextureRect" parent="Panel/lifes" unique_id=370840997]
+offset_left = 110.0
+offset_top = 10.0
+offset_right = 180.0
+offset_bottom = 80.0
+texture = ExtResource("15_2cqfq")
+expand_mode = 1
+
+[node name="PelletLabel" type="Label" parent="Panel/lifes" unique_id=802009042]
+offset_left = 35.0
+offset_top = 80.0
+offset_right = 75.0
+offset_bottom = 103.0
+theme_override_fonts/font = ExtResource("17_yaehf")
 
 [editable path="player"]

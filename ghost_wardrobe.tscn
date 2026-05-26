@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dfmxv56lqwp7b"]
+
+[ext_resource type="Texture2D" uid="uid://c1g7k6n1p28e6" path="res://Resources/Graphics/inventory_1.png" id="1_kor1v"]
+
+[node name="GhostWardrobe" type="Node2D" unique_id=1681450887]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=649877135]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=175028461]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_kor1v")
+expand_mode = 1

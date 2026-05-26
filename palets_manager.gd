@@ -14,12 +14,12 @@ func _ready():
 		
 func on_pellet_eaten(should_allow_eating_ghosts: bool):
 	pellets_eaten += 1
+	get_parent().get_node("Panel/lifes").update_pellets(pellets_eaten)
 	
 	if should_allow_eating_ghosts: 
 		for ghost in ghost_array: 
 			if ghost != null: 
 				ghost.trigger_run_away()
-			
+		
 	if pellets_eaten == total_pellets_count:
 		ui.game_won()
-	
