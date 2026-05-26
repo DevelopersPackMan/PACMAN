@@ -45,168 +45,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="gameWon" type="TextureRect" parent="." unique_id=1150192898]
-visible = false
-offset_left = 2.0
-offset_top = -115.0
-offset_right = 1154.0
-offset_bottom = 785.0
-mouse_filter = 2
-texture = ExtResource("6_1ipsn")
-expand_mode = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2030652078]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 75.0
-offset_top = -165.0
-offset_right = 107.0
-offset_bottom = -133.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=808055901]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer" unique_id=1549455273]
-visible = false
-custom_minimum_size = Vector2(1152, 648)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xsfh4")
-
-[node name="GameLabel" type="Label" parent="MarginContainer/CenterContainer/Panel" unique_id=816781355]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -349.5
-offset_top = 10.0
-offset_right = 157.5
-offset_bottom = 114.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_s2f8l")
-theme_override_font_sizes/font_size = 80
-text = "Game won!!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BtnModra" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1770538289]
-layout_mode = 0
-offset_left = 406.0
-offset_top = 507.0
-offset_right = 506.0
-offset_bottom = 607.0
-texture = ExtResource("3_1ipsn")
-expand_mode = 1
-
-[node name="BtnOranzna" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=752765454]
-layout_mode = 0
-offset_left = 303.0
-offset_top = 508.0
-offset_right = 403.0
-offset_bottom = 608.0
-texture = ExtResource("4_j2m3p")
-expand_mode = 1
-
-[node name="BtnRdeca" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1928487794]
-layout_mode = 0
-offset_left = 196.0
-offset_top = 507.0
-offset_right = 296.0
-offset_bottom = 607.0
-texture = ExtResource("5_4auga")
-expand_mode = 1
-
-[node name="BtnRumnena" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=876223089]
-layout_mode = 0
-offset_left = 505.0
-offset_top = 506.0
-offset_right = 605.0
-offset_bottom = 606.0
-texture = ExtResource("6_vgdfm")
-expand_mode = 1
-
-[node name="BtnVijočlicna" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1381484316]
-layout_mode = 0
-offset_left = 591.0
-offset_top = 506.0
-offset_right = 691.0
-offset_bottom = 606.0
-texture = ExtResource("7_nqtmw")
-expand_mode = 1
-
-[node name="BtnZelena" type="TextureRect" parent="MarginContainer/CenterContainer/Panel" unique_id=1132355437]
-layout_mode = 0
-offset_left = 682.0
-offset_top = 506.0
-offset_right = 782.0
-offset_bottom = 606.0
-texture = ExtResource("8_tjyu7")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="MarginContainer/CenterContainer/Panel" unique_id=1394933257]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 454.0
-offset_right = 791.0
-offset_bottom = 494.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 30
-text = "Izberi barvo za naslednji level:"
-
-[node name="Label" type="Label" parent="." unique_id=991638792]
-offset_left = 433.0
-offset_top = 111.0
-offset_right = 953.0
-offset_bottom = 241.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 60
-text = "SETTINGS"
-
-[node name="Label2" type="Label" parent="." unique_id=102294364]
-offset_left = 299.0
-offset_top = 231.0
-offset_right = 838.0
-offset_bottom = 335.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 40
-text = "Brightness"
-
-[node name="HSlider" type="HSlider" parent="." unique_id=261014462]
-offset_left = 660.0
-offset_top = 190.0
-offset_right = 783.0
-offset_bottom = 256.0
-scale = Vector2(2, 2)
-value = 100.0
-script = ExtResource("4_xh8xk")
-
-[node name="Label3" type="Label" parent="." unique_id=102572069]
-offset_left = 301.0
-offset_top = 285.0
-offset_right = 464.0
-offset_bottom = 337.0
-theme_override_fonts/font = ExtResource("1_onfsl")
-theme_override_font_sizes/font_size = 40
-text = "Volume"
-
-[node name="HSlider2" type="HSlider" parent="." unique_id=1642352997]
-offset_left = 657.0
-offset_top = 245.0
-offset_right = 780.0
-offset_bottom = 311.0
-scale = Vector2(2, 2)
-script = ExtResource("5_ytdjg")
-
 [node name="Button" type="Button" parent="." unique_id=377054438]
 offset_left = 538.0
 offset_top = 472.0
@@ -218,5 +56,306 @@ text = "BACK"
 
 [node name="Britness" type="CanvasModulate" parent="." unique_id=1977255578 groups=["svetlost"]]
 
-[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_brightness_changed"]
+[node name="SettingsScreen" type="Control" parent="." unique_id=1482207808]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="SettingsScreen" unique_id=991638792]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 111.0
+offset_right = 953.0
+offset_bottom = 241.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 60
+text = "SETTINGS"
+
+[node name="Label2" type="Label" parent="SettingsScreen" unique_id=102294364]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 231.0
+offset_right = 838.0
+offset_bottom = 335.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 40
+text = "Brightness"
+
+[node name="HSlider" type="HSlider" parent="SettingsScreen" unique_id=261014462]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 190.0
+offset_right = 783.0
+offset_bottom = 256.0
+scale = Vector2(2, 2)
+value = 100.0
+script = ExtResource("4_xh8xk")
+
+[node name="Label3" type="Label" parent="SettingsScreen" unique_id=102572069]
+layout_mode = 0
+offset_left = 301.0
+offset_top = 285.0
+offset_right = 464.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 40
+text = "Volume"
+
+[node name="HSlider2" type="HSlider" parent="SettingsScreen" unique_id=1642352997]
+layout_mode = 0
+offset_left = 657.0
+offset_top = 245.0
+offset_right = 780.0
+offset_bottom = 311.0
+scale = Vector2(2, 2)
+script = ExtResource("5_ytdjg")
+
+[node name="WinScreen" type="Control" parent="." unique_id=804067984]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="gameWon" type="TextureRect" parent="WinScreen" unique_id=1150192898]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -115.0
+offset_right = 1154.0
+offset_bottom = 785.0
+mouse_filter = 2
+texture = ExtResource("6_1ipsn")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="WinScreen" unique_id=2030652078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -165.0
+offset_right = 1219.0
+offset_bottom = 475.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="WinScreen/MarginContainer" unique_id=808055901]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="WinScreen/MarginContainer/CenterContainer" unique_id=1549455273]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsfh4")
+
+[node name="GameLabel" type="Label" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=816781355]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -22.0
+offset_right = 230.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_s2f8l")
+theme_override_colors/font_outline_color = Color(0.46666667, 0.28627452, 0.18431373, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 100
+text = "Game won!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnModra" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1770538289]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 507.0
+offset_right = 506.0
+offset_bottom = 607.0
+texture = ExtResource("3_1ipsn")
+expand_mode = 1
+
+[node name="BtnOranzna" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=752765454]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 508.0
+offset_right = 403.0
+offset_bottom = 608.0
+texture = ExtResource("4_j2m3p")
+expand_mode = 1
+
+[node name="BtnRdeca" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1928487794]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 507.0
+offset_right = 296.0
+offset_bottom = 607.0
+texture = ExtResource("5_4auga")
+expand_mode = 1
+
+[node name="BtnRumnena" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=876223089]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 506.0
+offset_right = 605.0
+offset_bottom = 606.0
+texture = ExtResource("6_vgdfm")
+expand_mode = 1
+
+[node name="BtnVijočlicna" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1381484316]
+layout_mode = 0
+offset_left = 591.0
+offset_top = 506.0
+offset_right = 691.0
+offset_bottom = 606.0
+texture = ExtResource("7_nqtmw")
+expand_mode = 1
+
+[node name="BtnZelena" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1132355437]
+layout_mode = 0
+offset_left = 682.0
+offset_top = 506.0
+offset_right = 782.0
+offset_bottom = 606.0
+texture = ExtResource("8_tjyu7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1394933257]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 454.0
+offset_right = 791.0
+offset_bottom = 494.0
+theme_override_colors/font_outline_color = Color(0.46666667, 0.28627452, 0.18431373, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 30
+text = "Izberi barvo za naslednji level:"
+
+[node name="StatsLabel" type="Label" parent="WinScreen" unique_id=419727019]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 487.0
+offset_right = 973.0
+offset_bottom = 542.0
+theme_override_colors/font_outline_color = Color(0.46666667, 0.28627452, 0.18431373, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 30
+text = "Text: \"Življenja: 3       |       Pikice: 100\" "
+horizontal_alignment = 1
+
+[node name="LoseScreen" type="Control" parent="." unique_id=763387973]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="gameWon" type="TextureRect" parent="LoseScreen" unique_id=358372222]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -115.0
+offset_right = 1154.0
+offset_bottom = 785.0
+mouse_filter = 2
+texture = ExtResource("6_1ipsn")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="LoseScreen" unique_id=1245294581]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 75.0
+offset_top = -165.0
+offset_right = 1219.0
+offset_bottom = 475.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="LoseScreen/MarginContainer" unique_id=1338231647]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="LoseScreen/MarginContainer/CenterContainer" unique_id=1328262508]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsfh4")
+
+[node name="GameLabel" type="Label" parent="LoseScreen/MarginContainer/CenterContainer/Panel" unique_id=824091001]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -418.0
+offset_top = -23.0
+offset_right = 245.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_s2f8l")
+theme_override_colors/font_outline_color = Color(0.46666667, 0.28627452, 0.18431373, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 100
+text = "Game Over!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="LoseScreen/MarginContainer/CenterContainer/Panel" unique_id=1061296384]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 434.0
+offset_right = 888.0
+offset_bottom = 475.0
+theme_override_colors/font_outline_color = Color(0.46666667, 0.28627452, 0.18431373, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 30
+text = "Več sreče prihodnjič"
+
+[node name="StatsLabel" type="Label" parent="LoseScreen" unique_id=1340192394]
+layout_mode = 0
+offset_left = 178.0
+offset_top = 380.0
+offset_right = 967.0
+offset_bottom = 435.0
+theme_override_colors/font_outline_color = Color(0.4652028, 0.28713697, 0.18482077, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 30
+text = "Text: \"Življenja: 3
+Pikice: 100\" "
+horizontal_alignment = 1
+
+[node name="RestartButton" type="TextureRect" parent="LoseScreen" unique_id=1038228667]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 507.0
+offset_right = 506.0
+offset_bottom = 607.0
+expand_mode = 1
+
+[node name="MenuButton" type="TextureRect" parent="LoseScreen" unique_id=221342843]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 508.0
+offset_right = 403.0
+offset_bottom = 608.0
+expand_mode = 1
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="value_changed" from="SettingsScreen/HSlider" to="SettingsScreen/HSlider" method="_on_brightness_changed"]

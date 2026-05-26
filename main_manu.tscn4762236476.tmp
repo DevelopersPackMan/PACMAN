@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://ckqffvqlqx5xk"]
+
+[ext_resource type="Script" uid="uid://dgbyqeu0qv4y7" path="res://main_manu.gd" id="1_dstia"]
+[ext_resource type="Texture2D" uid="uid://dmuv881sb8xed" path="res://Resources/Graphics/crno_ozadje_main.png" id="2_6u1ow"]
+[ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="2_uwwrv"]
+[ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="4_6u1ow"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u1ow"]
+bg_color = Color(0.038628314, 0.09993584, 0.20868865, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MainManu" type="Node2D" unique_id=1753857992]
+script = ExtResource("1_dstia")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=855483484]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1649508229]
+texture_filter = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6u1ow")
+expand_mode = 1
+
+[node name="StartButton" type="Button" parent="CanvasLayer/TextureRect" unique_id=1171208874]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 246.0
+offset_right = 722.0
+offset_bottom = 303.0
+theme_override_fonts/font = ExtResource("2_uwwrv")
+theme_override_font_sizes/font_size = 30
+text = "START"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/TextureRect" unique_id=928324195]
+layout_mode = 0
+offset_left = 435.0
+offset_top = 343.0
+offset_right = 719.0
+offset_bottom = 398.0
+theme_override_fonts/font = ExtResource("2_uwwrv")
+theme_override_font_sizes/font_size = 30
+text = "SETTINGS"
+
+[node name="CostumazeButton" type="Button" parent="CanvasLayer/TextureRect" unique_id=1283428099]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 441.0
+offset_right = 721.0
+offset_bottom = 497.0
+theme_override_fonts/font = ExtResource("2_uwwrv")
+theme_override_font_sizes/font_size = 19
+text = "ghost wardrobe"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/TextureRect" unique_id=1873517754]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 538.0
+offset_right = 719.0
+offset_bottom = 595.0
+theme_override_fonts/font = ExtResource("2_uwwrv")
+theme_override_font_sizes/font_size = 30
+text = "EXIT"
+
+[node name="Panel" type="Panel" parent="CanvasLayer/TextureRect" unique_id=105638333]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 71.0
+offset_right = 823.0
+offset_bottom = 191.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6u1ow")
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect/Panel" unique_id=1891654123]
+layout_mode = 0
+offset_left = 77.0
+offset_top = -3.0
+offset_right = 548.0
+offset_bottom = 153.0
+theme_override_fonts/font = ExtResource("2_uwwrv")
+theme_override_font_sizes/font_size = 90
+text = "PACMAN"
+
+[node name="Britness" type="CanvasModulate" parent="CanvasLayer" unique_id=1468388721 groups=["svetlost"]]
+
+[node name="CanvasLayer2" parent="." unique_id=1247300037 instance=ExtResource("4_6u1ow")]
+visible = false
+
+[connection signal="pressed" from="CanvasLayer/TextureRect/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/TextureRect/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/TextureRect/CostumazeButton" to="." method="_on_costumaze_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/TextureRect/ExitButton" to="." method="_on_exit_button_pressed"]
