@@ -91,6 +91,7 @@ _data = {
 }
 
 [node name="Ghost" type="Area2D" unique_id=1504479397 node_paths=PackedStringArray("at_home_targets", "scatter_targets")]
+scale = Vector2(0.9, 0.9)
 collision_layer = 16
 script = ExtResource("1_obmiq")
 at_home_targets = [null, null]
