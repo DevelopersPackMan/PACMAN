@@ -2495,4 +2495,6 @@ offset_right = 75.0
 offset_bottom = 103.0
 theme_override_fonts/font = ExtResource("17_yaehf")
 
+[node name="Britness" type="CanvasModulate" parent="." unique_id=156183661 groups=["svetlost"]]
+
 [editable path="player"]

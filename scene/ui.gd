@@ -5,10 +5,13 @@ class_name UI
 
 func _ready():
 	hide()
+	$gameWon.hide()
+
 	
 func game_won():
 	print("KLIK: Funkcija game_won() v UI se je uspešno zagnala!")
-	self.show() 
+	self.show()
+	$gameWon.show()
 	center_container.show()
 	var player = get_parent().get_node("player")
 	var pellets = get_parent().get_node("Pellets")
@@ -17,8 +20,10 @@ func game_won():
 		
 func _input(event):
 	if event.is_action_pressed("open_settings"):
-		hide()
-
+		if $MarginContainer/CenterContainer.visible:
+			hide()
+		else:
+			hide()
 
 func _on_button_pressed() -> void:
 	print("BACK pritisnjen!")
