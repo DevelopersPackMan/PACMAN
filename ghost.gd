@@ -39,6 +39,7 @@ var is_blinking = false
 @onready var point_label: Label = $PointLabel
 
 var backup_timer: Timer
+var is_leaving_home_after_eaten = false # Zastavica za nadzor izhoda
 
 func _ready():
 	navigation_agent_2d.path_desired_distance = 8.0
@@ -51,14 +52,18 @@ func _ready():
 	backup_timer.timeout.connect(on_position_reached)
 	add_child(backup_timer)
 	
+	if at_home_timer:
+		at_home_timer.timeout.connect(_on_at_home_timer_timeout)
+	
 	call_deferred("setup")
 	
 func _physics_process(delta):
-	if current_state != GhostState.EATEN and not run_away_timer.is_stopped() and run_away_timer.time_left < (run_away_timer.wait_time / 2) and not is_blinking: 
-		start_blinking()
-		
 	if game_over:
 		return
+
+	# Utripanje se sproži le, če smo v stanju RUN_AWAY in se čas izteka
+	if current_state == GhostState.RUN_AWAY and not run_away_timer.is_stopped() and run_away_timer.time_left < (run_away_timer.wait_time / 2) and not is_blinking: 
+		start_blinking()
 		
 	if current_state == GhostState.CHASE and chasing_target == null:
 		start_scatter_loop()
@@ -108,6 +113,8 @@ func calculate_direction(move_direction: Vector2):
 		direction_change.emit(direction)
 	
 func setup():
+	await get_tree().physics_frame
+	
 	if is_starting_at_home: 
 		start_at_home()
 	else: 
@@ -115,19 +122,43 @@ func setup():
 
 func start_at_home(): 
 	current_state = GhostState.STARTING_AT_HOME
+	navigation_agent_2d.path_desired_distance = 2.0
+	navigation_agent_2d.target_desired_distance = 2.0
+	
 	at_home_timer.start()
 	
 	if at_home_targets.size() > current_at_home_index and is_instance_valid(at_home_targets[current_at_home_index]):
 		navigation_agent_2d.target_position = at_home_targets[current_at_home_index].global_position
+		navigation_agent_2d.get_next_path_position()
+		
+func _on_at_home_timer_timeout() -> void:
+	if current_state == GhostState.STARTING_AT_HOME and not is_leaving_home_after_eaten:
+		# Če medtem ko smo doma, zunaj že teče run_away način, gremo v RUN_AWAY
+		if not run_away_timer.is_stopped():
+			current_state = GhostState.RUN_AWAY
+			run_away_from_pacman()
+		else:
+			leave_home_completely()
+
+func leave_home_completely():
+	if respawn_home_target and is_instance_valid(respawn_home_target):
+		navigation_agent_2d.path_desired_distance = 4.0
+		navigation_agent_2d.target_desired_distance = 4.0
+		navigation_agent_2d.target_position = respawn_home_target.global_position
+		navigation_agent_2d.get_next_path_position()
+	else:
+		is_leaving_home_after_eaten = false
+		start_scatter_loop()
 
 func update_navigation_target():
-	if current_state == GhostState.EATEN:
+	if current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return 
 		
 	if scatter_targets.size() > 0 and current_scatter_index < scatter_targets.size():
 		var target_marker = scatter_targets[current_scatter_index]
 		if is_instance_valid(target_marker):
 			navigation_agent_2d.target_position = target_marker.global_position
+			navigation_agent_2d.get_next_path_position()
 	
 func start_scatter_loop():
 	if current_state == GhostState.EATEN:
@@ -153,14 +184,31 @@ func on_position_reached():
 	elif current_state == GhostState.EATEN:
 		check_if_home_reached()
 	elif current_state == GhostState.STARTING_AT_HOME: 
-		move_to_next_home_position()
+		if is_leaving_home_after_eaten:
+			is_leaving_home_after_eaten = false
+			navigation_agent_2d.path_desired_distance = 8.0
+			navigation_agent_2d.target_desired_distance = 8.0
+			
+			# POPRAVEK: Ko zapustimo hišo po oživitvi, preverimo, ali še vedno traja run_away učinek boba
+			if not run_away_timer.is_stopped():
+				current_state = GhostState.RUN_AWAY
+				run_away_from_pacman()
+			else:
+				start_chasing_pacman()
+		else:
+			move_to_next_home_position()
 
 func move_to_next_home_position(): 
-	current_at_home_index = 1 if current_at_home_index == 0 else 0
+	if at_home_targets.size() == 0:
+		return
+		
+	current_at_home_index = (current_at_home_index + 1) % at_home_targets.size()
 	
-	if at_home_targets.size() > current_at_home_index and is_instance_valid(at_home_targets[current_at_home_index]):
-		navigation_agent_2d.target_position = at_home_targets[current_at_home_index].global_position
-
+	var naslednja_tocka = at_home_targets[current_at_home_index]
+	if is_instance_valid(naslednja_tocka):
+		navigation_agent_2d.target_position = naslednja_tocka.global_position
+		navigation_agent_2d.get_next_path_position()
+		
 func scatter_position_reached(): 
 	if current_state == GhostState.EATEN: 
 		return
@@ -182,32 +230,48 @@ func stop_game(won: bool):
 		update_chasing_target_position_timer.stop()
 
 func _on_scatter_timer_timeout() -> void:
-	if current_state != GhostState.RUN_AWAY and current_state != GhostState.EATEN:
+	if current_state != GhostState.RUN_AWAY and current_state != GhostState.EATEN and current_state != GhostState.STARTING_AT_HOME:
 		start_chasing_pacman()
 
 func trigger_run_away():
 	if game_over or current_state == GhostState.EATEN:
 		return
-		
-	current_state = GhostState.RUN_AWAY
+	
+	if body_sprite:
+		body_sprite.run_away()
+	if eyes_sprite:
+		eyes_sprite.hide_eyes()
+	
 	is_blinking = false
+	
+	# POPRAVEK: Časovnik zaženemo TUKAJ, ko Pacman poje bob (8 sekund)
+	run_away_timer.wait_time = 8.0
+	run_away_timer.start()
+
+	if current_state == GhostState.STARTING_AT_HOME:
+		return
+
+	current_state = GhostState.RUN_AWAY
 	run_away_from_pacman()
 
 func start_chasing_pacman(): 
-	if current_state == GhostState.EATEN:
+	if current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return
 		
 	if chasing_target == null: 
 		start_scatter_loop()
 		return
 		
-	body_sprite.modulate = color
-	if body_sprite.animation_player:
-		body_sprite.animation_player.play("moving")
-	eyes_sprite.show_eyes()
+	if body_sprite:
+		body_sprite.modulate = color
+		if body_sprite.animation_player:
+			body_sprite.animation_player.play("moving")
+	if eyes_sprite:
+		eyes_sprite.show_eyes()
 		
 	current_state = GhostState.CHASE
 	navigation_agent_2d.target_position = chasing_target.global_position
+	navigation_agent_2d.get_next_path_position() # Osveži pot takoj
 	
 	if update_chasing_target_position_timer != null:
 		update_chasing_target_position_timer.start()
@@ -216,18 +280,28 @@ func start_chasing_pacman_after_being_eaten():
 	set_deferred("monitoring", true)
 	set_deferred("monitorable", true)
 	
-	body_sprite.show()
-	body_sprite.move()
-	body_sprite.modulate = color 
-	
-	start_chasing_pacman()
+	if body_sprite:
+		body_sprite.show()
+		if body_sprite.has_method("move"):
+			body_sprite.move()
+		body_sprite.modulate = color 
+		
+	if eyes_sprite:
+		eyes_sprite.show_eyes()
+		eyes_sprite.show()
+
+	# Ko je duh pojeden, gre nazaj v stanje STARTING_AT_HOME in takoj sproži izhod
+	current_state = GhostState.STARTING_AT_HOME
+	is_leaving_home_after_eaten = true
+	leave_home_completely()
 	
 func _on_update_chasing_target_position_timer_timeout():
-	if game_over or current_state == GhostState.RUN_AWAY or current_state == GhostState.EATEN:
+	if game_over or current_state == GhostState.RUN_AWAY or current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return
 		
 	if chasing_target != null and current_state == GhostState.CHASE:
 		navigation_agent_2d.target_position = chasing_target.global_position
+		navigation_agent_2d.get_next_path_position()
 		update_chasing_target_position_timer.start()
 	else:
 		start_scatter_loop()
@@ -236,35 +310,42 @@ func run_away_from_pacman():
 	if current_state == GhostState.EATEN:
 		return
 
-	if run_away_timer.is_stopped(): 
-		body_sprite.run_away()
-		eyes_sprite.hide_eyes()
-		run_away_timer.wait_time = 8.0
-		run_away_timer.start()
+	# POPRAVEK: Tukaj smo ODSTRANILI run_away_timer.start()! 
+	# Prej je to ob vsakem koraku ponastavilo čas nazaj na 8 sekund, zato se časovnik živim duhovom nikoli ni iztekel.
 	
-		if update_chasing_target_position_timer != null:
-			update_chasing_target_position_timer.stop()
-		scatter_timer.stop()
+	if update_chasing_target_position_timer != null:
+		update_chasing_target_position_timer.stop()
+	scatter_timer.stop()
 
 	if movement_targets != null:
 		navigation_agent_2d.target_position = movement_targets.global_position
+		navigation_agent_2d.get_next_path_position()
 		
 	backup_timer.start()
 	
 func start_blinking(): 
 	is_blinking = true
-	body_sprite.start_blinking()
+	if body_sprite and body_sprite.has_method("start_blinking"):
+		body_sprite.start_blinking()
 	
 func _on_run_away_timer_timeout() -> void:
-	if current_state == GhostState.EATEN:
+	# Če je duh medtem pojet ali je v hišici, ignoriramo iztek tega časovnika
+	if current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return
+		
 	is_blinking = false
-	eyes_sprite.show_eyes()
-	body_sprite.move() 
+	if eyes_sprite:
+		eyes_sprite.show_eyes()
+	if body_sprite:
+		if body_sprite.has_method("move"):
+			body_sprite.move() 
+			
+	# POPRAVEK: Ko se čas izteče, duha nemudoma preusmerimo nazaj v preganjanje Pacmana
 	start_chasing_pacman()
 	
 func get_eaten():
 	current_state = GhostState.EATEN
+	print("Duh ", name, " je bil pojeden! Oči potujejo na prvo domačo točko.")
 	
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
@@ -278,43 +359,50 @@ func get_eaten():
 	if point_label:
 		point_label.show()
 	
+	# POPRAVEK: Za pojedenega duha popolnoma ustavimo run_away_timer, da ne moti procesa vračanja domov
 	run_away_timer.stop()
 	scatter_timer.stop()
 	if update_chasing_target_position_timer != null:
 		update_chasing_target_position_timer.stop()
-		
+	
 	if points_manager:
 		await points_manager.pause_on_ghost_eaten()
 		
 	if point_label:
 		point_label.hide()
 	
-	if is_instance_valid(respawn_home_target):
-		navigation_agent_2d.target_position = respawn_home_target.global_position
+	if at_home_targets.size() > 0 and is_instance_valid(at_home_targets[0]):
+		var cilj = at_home_targets[0].global_position
+		navigation_agent_2d.path_desired_distance = 2.0
+		navigation_agent_2d.target_desired_distance = 2.0
+		navigation_agent_2d.target_position = cilj
+		navigation_agent_2d.get_next_path_position()
+		backup_timer.start()
 	else:
+		print("NAPAKA: Seznam 'at_home_targets' je prazen!")
 		start_scatter_loop()
-		return
-		
-	backup_timer.start()
 
 func check_if_home_reached():
 	if current_state != GhostState.EATEN:
 		return
 
-	if is_instance_valid(respawn_home_target):
-		var home_pos = respawn_home_target.global_position
+	if at_home_targets.size() > 0 and is_instance_valid(at_home_targets[0]):
+		var home_pos = at_home_targets[0].global_position
+		var razdalja = global_position.distance_to(home_pos)
 		
-		if global_position.distance_to(home_pos) < 20.0:
+		if razdalja < 8.0:
+			print("Oči so prispele domov. Duh se oživlja.")
 			backup_timer.stop()
 			start_chasing_pacman_after_being_eaten()
 		else:
 			navigation_agent_2d.target_position = home_pos
+			navigation_agent_2d.get_next_path_position()
 			backup_timer.start()
 	else:
 		start_scatter_loop()
-		
+				
 func _on_body_entered(body):
-	if game_over or current_state == GhostState.EATEN:
+	if game_over or current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return
 		
 	var player = body as Player
