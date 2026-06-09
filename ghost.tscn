@@ -99,14 +99,14 @@ scatter_targets = [null, null, null, null]
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=794951695]
 texture_filter = 1
-position = Vector2(24, 31)
+position = Vector2(-0.44444796, -0.11111641)
 scale = Vector2(4, 4)
 texture = ExtResource("1_6attn")
 script = ExtResource("3_xtt71")
 
 [node name="EyesSprite" type="Sprite2D" parent="." unique_id=953759998]
 texture_filter = 1
-position = Vector2(24.000004, 24)
+position = Vector2(-0.4444453, -0.4444496)
 scale = Vector2(3, 3)
 texture = ExtResource("2_obmiq")
 script = ExtResource("5_hiw70")
@@ -116,7 +116,7 @@ left = ExtResource("7_yc3kp")
 right = ExtResource("8_bqjpw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=81860719]
-position = Vector2(24, 27)
+position = Vector2(-0.4444455, 0.3333359)
 shape = SubResource("CircleShape2D_6attn")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1353557442]
