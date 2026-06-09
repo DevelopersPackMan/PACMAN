@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://df55mo2r8ee1a" path="res://Resources/Graphics/ColourPosode/rdeca_barva.png" id="5_4auga"]
 [ext_resource type="Script" uid="uid://6gb2upg84iym" path="res://scene/h_slider_2.gd" id="5_ytdjg"]
 [ext_resource type="Texture2D" uid="uid://c235bj0tbsd7n" path="res://Resources/Graphics/crno ozadje.png" id="6_1ipsn"]
+[ext_resource type="Script" uid="uid://d3xsfahjdrm5d" path="res://scene/win_screen.gd" id="6_j2m3p"]
 [ext_resource type="Texture2D" uid="uid://bb3jorj03aelm" path="res://Resources/Graphics/ColourPosode/rumena_barva.png" id="6_vgdfm"]
 [ext_resource type="Texture2D" uid="uid://b60hxwkf214nh" path="res://Resources/Graphics/ColourPosode/vijolicna_barva.png" id="7_nqtmw"]
 [ext_resource type="Texture2D" uid="uid://bwmswlk65ny8n" path="res://Resources/Graphics/ColourPosode/zelena_barva.png" id="8_tjyu7"]
@@ -57,6 +58,7 @@ text = "BACK"
 [node name="Britness" type="CanvasModulate" parent="." unique_id=1977255578 groups=["svetlost"]]
 
 [node name="SettingsScreen" type="Control" parent="." unique_id=1482207808]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -112,11 +114,11 @@ scale = Vector2(2, 2)
 script = ExtResource("5_ytdjg")
 
 [node name="WinScreen" type="Control" parent="." unique_id=804067984]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("6_j2m3p")
 
 [node name="gameWon" type="TextureRect" parent="WinScreen" unique_id=1150192898]
 layout_mode = 0
@@ -241,6 +243,7 @@ theme_override_font_sizes/font_size = 30
 text = "Izberi barvo za naslednji level:"
 
 [node name="StatsLabel" type="Label" parent="WinScreen" unique_id=419727019]
+visible = false
 layout_mode = 0
 offset_left = 184.0
 offset_top = 487.0
@@ -254,6 +257,7 @@ text = "Text: \"Življenja: 3       |       Pikice: 100\" "
 horizontal_alignment = 1
 
 [node name="LoseScreen" type="Control" parent="." unique_id=763387973]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
