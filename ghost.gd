@@ -19,7 +19,7 @@ var current_state: GhostState
 var is_blinking = false
 var sent_home_by_player = false
 
-# POPRAVEK: Zastavica, ki med pavzo prepreči kakršnokoli premikanje
+# Zastavica, ki med pavzo prepreči kakršnokoli premikanje
 var is_paused_after_killing = false 
 
 @export var respawn_home_target: Node2D

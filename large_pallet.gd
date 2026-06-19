@@ -1,11 +1,15 @@
 extends Area2D
 
+# Signal, ki javi managerju, da je pikica pojedena
+signal pellet_eaten(is_big: bool)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	# Nastavimo barvo iz Global skripte
+	# Če so pikice nevidne, preveri, da Global.chosen_pellet_color ni črn!
+	self.modulate = Global.chosen_pellet_color
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_body_entered(body: Node2D) -> void:
+	if body.name == "player" or body is Player:
+		# Oddamo signal (true pomeni, da je to velika pikica)
+		pellet_eaten.emit(true)
+		queue_free() # Pikica izgine

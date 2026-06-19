@@ -2,11 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://di7lt8ehvdxdh" path="res://Resources/Graphics/walls/wall_atlas.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://khsrvfe3d3ga" path="res://main.gd" id="1_5vw27"]
+[ext_resource type="AudioStream" uid="uid://bu756i3lh25h3" path="res://Resources/Sound/pacman_chomp.wav" id="2_getpj"]
 [ext_resource type="Texture2D" uid="uid://8cjr636270dr" path="res://Resources/Graphics/maze/origmaps_2x.png" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://15feik7gh6cv" path="res://tile_map.gd" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://yv4ka5fjkiw5" path="res://scene/pacman.tscn" id="3_h2yge"]
+[ext_resource type="AudioStream" uid="uid://bnxugtt2eriq0" path="res://Resources/Sound/pacman_death.wav" id="3_ryguw"]
 [ext_resource type="PackedScene" uid="uid://bm4rpnkwl8lvl" path="res://palet.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://di3ce0vr4wv41" path="res://palets_manager.gd" id="4_7mycd"]
+[ext_resource type="AudioStream" uid="uid://100ohtpyo02o" path="res://Resources/Sound/pacman_eatghost.wav" id="4_d13ii"]
+[ext_resource type="AudioStream" uid="uid://c4b0pvuyylv4a" path="res://Resources/Sound/pacman_power_pellet.wav" id="5_1u8w0"]
 [ext_resource type="PackedScene" uid="uid://cgwvdwc37kva8" path="res://scene/connector.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
@@ -393,6 +397,7 @@ sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 bg_color = Color(0.005481924, 0.11178515, 0.26478532, 1)
 
 [node name="main" type="Node" unique_id=98923383]
+process_mode = 3
 script = ExtResource("1_5vw27")
 
 [node name="TileMap" type="TileMap" parent="." unique_id=541958996]
@@ -416,11 +421,26 @@ scale = Vector2(3.1627905, 3.0025682)
 texture = ExtResource("2_h2yge")
 metadata/_edit_lock_ = true
 
-[node name="player" parent="." unique_id=654613068 instance=ExtResource("3_h2yge")]
+[node name="player" parent="." unique_id=654613068 node_paths=PackedStringArray("power_pellet_sound", "pacman_death_sound_player", "pacman_chomp") instance=ExtResource("3_h2yge")]
 z_index = 10
 position = Vector2(-326, -11)
 scale = Vector2(2.5, 2.5)
 collision_mask = 14
+power_pellet_sound = NodePath("PowerPelletSound")
+pacman_death_sound_player = NodePath("DeathSound")
+pacman_chomp = NodePath("PacmanChomp")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="player" unique_id=46309701]
+stream = ExtResource("3_ryguw")
+
+[node name="EatGhostSound" type="AudioStreamPlayer2D" parent="player" unique_id=739469690]
+stream = ExtResource("4_d13ii")
+
+[node name="PowerPelletSound" type="AudioStreamPlayer2D" parent="player" unique_id=797045387]
+stream = ExtResource("5_1u8w0")
+
+[node name="PacmanChomp" type="AudioStreamPlayer2D" parent="player" unique_id=284431933]
+stream = ExtResource("2_getpj")
 
 [node name="Pellets" type="Node" parent="." unique_id=729613908 node_paths=PackedStringArray("ghost_array")]
 script = ExtResource("4_7mycd")
@@ -2265,8 +2285,11 @@ position = Vector2(199, -299)
 [node name="Area2D" parent="Pellets" unique_id=1974130816 instance=ExtResource("8_ycdy4")]
 position = Vector2(-645, -506)
 
+[node name="Area2D" parent="Pellets/Area2D" unique_id=1652762599 instance=ExtResource("8_ycdy4")]
+position = Vector2(-645, -506)
+
 [node name="Area2D2" parent="Pellets" unique_id=2092407295 instance=ExtResource("8_ycdy4")]
-position = Vector2(627, -506)
+position = Vector2(628, -506)
 
 [node name="Palet302" parent="Pellets" unique_id=2111788955 instance=ExtResource("4_1bvp3")]
 position = Vector2(-401, 277)
@@ -2277,11 +2300,11 @@ position = Vector2(-257, 277)
 [node name="Palet232" parent="Pellets" unique_id=1144705413 instance=ExtResource("4_1bvp3")]
 position = Vector2(-401, 325)
 
-[node name="Area2D3" parent="Pellets" unique_id=1836877911 instance=ExtResource("8_ycdy4")]
-position = Vector2(627, 382)
+[node name="Area2D3" parent="Pellets" unique_id=500045851 instance=ExtResource("8_ycdy4")]
+position = Vector2(-548, 502)
 
-[node name="Area2D4" parent="Pellets" unique_id=1638804337 instance=ExtResource("8_ycdy4")]
-position = Vector2(-549, 502)
+[node name="Area2D4" parent="Pellets" unique_id=1541063900 instance=ExtResource("8_ycdy4")]
+position = Vector2(628, 382)
 
 [node name="Connector" parent="." unique_id=168904100 instance=ExtResource("5_lquwl")]
 
@@ -2420,6 +2443,7 @@ script = ExtResource("13_ycdy4")
 script = ExtResource("15_vivmo")
 
 [node name="Panel" type="Panel" parent="." unique_id=646806730]
+visible = false
 offset_left = -1.0
 offset_right = 199.0
 offset_bottom = 80.0

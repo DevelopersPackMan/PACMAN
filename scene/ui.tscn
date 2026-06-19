@@ -58,7 +58,6 @@ text = "BACK"
 [node name="Britness" type="CanvasModulate" parent="." unique_id=1977255578 groups=["svetlost"]]
 
 [node name="SettingsScreen" type="Control" parent="." unique_id=1482207808]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -114,6 +113,7 @@ scale = Vector2(2, 2)
 script = ExtResource("5_ytdjg")
 
 [node name="WinScreen" type="Control" parent="." unique_id=804067984]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -203,7 +203,7 @@ offset_bottom = 607.0
 texture = ExtResource("5_4auga")
 expand_mode = 1
 
-[node name="BtnRumnena" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=876223089]
+[node name="BtnRumena" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=876223089]
 layout_mode = 0
 offset_left = 505.0
 offset_top = 506.0
@@ -212,7 +212,7 @@ offset_bottom = 606.0
 texture = ExtResource("6_vgdfm")
 expand_mode = 1
 
-[node name="BtnVijočlicna" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1381484316]
+[node name="BtnVijolicna" type="TextureRect" parent="WinScreen/MarginContainer/CenterContainer/Panel" unique_id=1381484316]
 layout_mode = 0
 offset_left = 591.0
 offset_top = 506.0
