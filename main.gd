@@ -3,10 +3,15 @@ extends Node
 var preostale_pikice: int = 0
 
 func _ready():
+	get_tree().paused = false
+	
 	call_deferred("connect_signals")
 
 	if has_node("TileMap"):
 		$TileMap.modulate = Global.chosen_pellet_color
+
+	if has_node("CanvasLayer/TextureRect"):
+		$CanvasLayer/TextureRect.modulate = Global.chosen_pellet_color.darkened(0.7)
 
 	apply_brightness()
 
@@ -17,48 +22,49 @@ func _ready():
 func apply_brightness():
 	if has_node("CanvasModulate"):
 		var b = GlobalSettings.brightness
-
 		$CanvasModulate.color = Color(b, b, b, 1.0)
 
 
 func connect_signals():
-	$player.player_died.connect(_on_player_died)
+	if has_node("player"):
+		$player.player_died.connect(_on_player_died)
 
 
 func _on_player_died(lives):
-	print("Player umrl! Lives: ", lives)
-	$Panel/lifes.update_hearts(lives)
+	if has_node("Panel/lifes"):
+		$Panel/lifes.update_hearts(lives)
 
 	if lives <= 0:
-		print("KONEC IGRE: Življenja so pošla!")
-		$UI.game_over()
+		# dodana pavza
+		get_tree().paused = true
+		if has_node("UI"):
+			$UI.game_over()
 
 
 func _on_pikica_pojedena():
 	preostale_pikice -= 1
 
 	if preostale_pikice <= 0:
-		print("Vse pikice počiščene! Odpiram win screen...")
-
+		# dodana pavza
+		get_tree().paused = true
 		if has_node("UI/WinScreen"):
 			$UI/WinScreen.show()
+		elif has_node("UI"):
+			$UI.game_won()
 
 
 func _unhandled_input(event):
 	if event.is_action_pressed("open_settings"):
-		print("Odpiram nastavitve...")
-		$UI.show_settings()
+		if has_node("UI"):
+			$UI.show_settings()
 
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_K:
-		print("TEST WIN")
-		$UI.game_won()
-		await get_tree().create_timer(1.5).timeout
-
-		if has_node("UI/WinScreen"):
-			$UI/WinScreen.show()
+		get_tree().paused = true
+		if has_node("UI"): $UI.game_won()
+		if has_node("UI/WinScreen"): $UI/WinScreen.show()
 
 	if event is InputEventKey and event.pressed and event.keycode == KEY_L:
-		print("TEST LOSE")
-		$UI.game_over()
+		get_tree().paused = true
+		if has_node("UI"): $UI.game_over()

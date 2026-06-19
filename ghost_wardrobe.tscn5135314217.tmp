@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dfmxv56lqwp7b"]
+
+[ext_resource type="Script" uid="uid://dk6jk5q35l10c" path="res://ghost_wardrobe.gd" id="1_0nlpm"]
+[ext_resource type="Texture2D" uid="uid://c1g7k6n1p28e6" path="res://Resources/Graphics/inventory_1.png" id="1_kor1v"]
+[ext_resource type="Texture2D" uid="uid://bwh3pnp6rcycn" path="res://Resources/Graphics/Ghost/Ghost_Body_01.png" id="3_hsyah"]
+
+[node name="GhostWardrobe" type="Node2D" unique_id=1681450887]
+position = Vector2(290, 264)
+script = ExtResource("1_0nlpm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=649877135]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=175028461]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_kor1v")
+expand_mode = 1
+
+[node name="GhostPreview" type="Sprite2D" parent="CanvasLayer" unique_id=399134485]
+modulate = Color(1, 0.03137255, 0.078431375, 1)
+texture_filter = 1
+position = Vector2(323, 231)
+scale = Vector2(10, 10)
+texture = ExtResource("3_hsyah")
+
+[node name="Accessory" type="Sprite2D" parent="CanvasLayer/GhostPreview" unique_id=245979452]
+texture_filter = 1
+position = Vector2(4.4000015, 0.6999998)
+
+[node name="Eyes" type="Sprite2D" parent="CanvasLayer/GhostPreview" unique_id=1619777381]
+texture_filter = 1
+position = Vector2(-0.099999994, -2.3)
+
+[node name="Mouth" type="Sprite2D" parent="CanvasLayer/GhostPreview" unique_id=726315610]
+texture_filter = 1
+position = Vector2(0.29999995, 2.8999996)
+
+[node name="GhostButton1" type="Button" parent="CanvasLayer" unique_id=544796501]
+self_modulate = Color(0.05882353, 0.11372549, 1, 1)
+offset_left = 98.0
+offset_top = 505.0
+offset_right = 178.0
+offset_bottom = 565.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="GhostButton2" type="Button" parent="CanvasLayer" unique_id=1108122196]
+modulate = Color(1, 1, 0.06666667, 1)
+offset_left = 217.0
+offset_top = 505.0
+offset_right = 297.0
+offset_bottom = 565.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="GhostButton3" type="Button" parent="CanvasLayer" unique_id=945039705]
+modulate = Color(1, 0.16078432, 0.03137255, 1)
+offset_left = 337.0
+offset_top = 504.0
+offset_right = 417.0
+offset_bottom = 564.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="GnostButton4" type="Button" parent="CanvasLayer" unique_id=1317734431]
+modulate = Color(0.20784314, 1, 0.0627451, 1)
+offset_left = 455.0
+offset_top = 505.0
+offset_right = 535.0
+offset_bottom = 565.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="AccButton1" type="Button" parent="CanvasLayer" unique_id=209773684]
+offset_left = 664.0
+offset_top = 75.0
+offset_right = 844.0
+offset_bottom = 135.0
+
+[connection signal="pressed" from="CanvasLayer/GhostButton1" to="." method="_on_ghost_button_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/GhostButton2" to="." method="_on_ghost_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/GhostButton3" to="." method="_on_ghost_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/GnostButton4" to="." method="_on_gnost_button_4_pressed"]

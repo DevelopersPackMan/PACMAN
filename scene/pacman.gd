@@ -1,15 +1,22 @@
 extends CharacterBody2D
 class_name Player
 signal player_died(life: int)
+
 # Variables
 var next_movement_direction = Vector2.ZERO
 var movement_direction = Vector2.ZERO
 var shape_query = PhysicsShapeQueryParameters2D.new()
+
 # Export variables
 @export var speed = 300
+@export var power_pellet_sound: AudioStreamPlayer2D
 @export var start_position: Node2D
 @export var pacman_death_sound_player: AudioStreamPlayer2D
 @export var lifes: int = 3
+@export var eat_ghost_sound: AudioStreamPlayer2D
+@export var pacman_chomp: AudioStreamPlayer2D
+
+
 # Onready variables
 @onready var sprite_2d = $Sprite2D
 @onready var collision_shape_2d = $CollisionShape2D
@@ -24,13 +31,25 @@ func _ready():
 func reset_player():
 	if animation_player.has_animation("Default"):
 		animation_player.play("Default")
+	
 	if start_position != null:
 		position = start_position.position
 	else:
 		print("OPOZORILO: Start Position ni nastavljen v Inspektorju!")
+		
 	set_physics_process(true)
 	next_movement_direction = Vector2.ZERO
 	movement_direction = Vector2.ZERO
+
+# --- NOVA FUNKCIJA: KO POJEŠ VELIKO KROGLICO ---
+func eat_power_pellet():
+	if power_pellet_sound != null:
+		power_pellet_sound.play()
+
+# --- NOVA FUNKCIJA: KO POJEŠ DUHCA ---
+func eat_ghost():
+	if eat_ghost_sound != null:
+		eat_ghost_sound.play()
 	
 func _physics_process(delta):
 	get_input()
@@ -42,6 +61,15 @@ func _physics_process(delta):
 		velocity = movement_direction * speed
 	else:
 		velocity = Vector2.ZERO
+	
+	# Logika za pacman chomp
+	if velocity != Vector2.ZERO:
+		if pacman_chomp != null and !pacman_chomp.playing:
+			pacman_chomp.play()
+	else:
+		if pacman_chomp != null:
+			pacman_chomp.stop()
+			
 	move_and_slide()
 
 func get_input():
@@ -65,6 +93,9 @@ func can_move_in_direction(dir: Vector2, delta: float) -> bool:
 	return result.size() == 0
 
 func die():
+	if pacman_chomp != null:
+		pacman_chomp.stop()
+		
 	if pacman_death_sound_player != null and !pacman_death_sound_player.playing:
 		pacman_death_sound_player.play()
 	
@@ -80,36 +111,3 @@ func die():
 			if start_position != null:
 				position = start_position.position
 			set_collision_layer_value(1, false)
-
-# STARA LOGIKA - zakomentirano
-#func die():
-#	if pacman_death_sound_player != null and !pacman_death_sound_player.playing:
-#		pacman_death_sound_player.play()
-#	
-#	set_physics_process(false)
-#	lifes -= 1
-#	player_died.emit(lifes)
-#	if lifes > 0:
-#		reset_player()
-#	else:
-#		if start_position != null:
-#			position = start_position.position
-#		set_collision_layer_value(1, false)
-# STARA LOGIKA - zakomentirano
-#func die():
-#	if pacman_death_sound_player != null and !pacman_death_sound_player.playing:
-#		pacman_death_sound_player.play()
-#	if animation_player.has_animation("death"):
-#		animation_player.play("death")
-#	set_physics_process(false)
-
-#func _on_animation_player_animation_finished(anim_name):
-#	if anim_name == "death":
-#		lifes -= 1
-#		player_died.emit(lifes)
-#		if lifes > 0:
-#			reset_player()
-#		else:
-#			if start_position != null:
-#				position = start_position.position
-#			set_collision_layer_value(1, false)

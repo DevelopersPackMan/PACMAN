@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ddigx3elc4lc6"]
 
 [ext_resource type="Script" uid="uid://7xid1rcxwqey" path="res://palet.gd" id="1_cmu5r"]
-[ext_resource type="Texture2D" uid="uid://c0752a5f7f7am" path="res://large_pellet_red.png" id="1_f8j6d"]
+[ext_resource type="Texture2D" uid="uid://cdd52r53qwxk8" path="res://scene/bela.png" id="2_cmu5r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8j6d"]
 size = Vector2(10, 10)
@@ -14,8 +14,9 @@ should_allow_eating_ghosts = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=801835892]
 texture_filter = 1
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("1_f8j6d")
+position = Vector2(-18, -5.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cmu5r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1058356956]
 position = Vector2(0, -8.5)
