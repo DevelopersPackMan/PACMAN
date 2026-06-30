@@ -1,4 +1,9 @@
 extends Node
+
+var selected_ghost = 1   # Barva za Pacmana (1-15)
+var selected_pattern = 0  # 0 = brez, 1-4 = vzorci (pike, proge, srca, zvezdice)
+var pacman_name = ""
+
 var brightness = 1.0
 var volume = 1.0 
 
@@ -9,4 +14,5 @@ func set_volume(val_linear: float):
 
 func set_brightness(val: float):
 	brightness = val
-	get_tree().current_scene.modulate = Color(val, val, val, 1.0)
+	if get_tree().current_scene:
+		get_tree().current_scene.modulate = Color(val, val, val, 1.0)

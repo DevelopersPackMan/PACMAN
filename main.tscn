@@ -2,15 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://di7lt8ehvdxdh" path="res://Resources/Graphics/walls/wall_atlas.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://khsrvfe3d3ga" path="res://main.gd" id="1_5vw27"]
-[ext_resource type="AudioStream" uid="uid://bu756i3lh25h3" path="res://Resources/Sound/pacman_chomp.wav" id="2_getpj"]
 [ext_resource type="Texture2D" uid="uid://8cjr636270dr" path="res://Resources/Graphics/maze/origmaps_2x.png" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://15feik7gh6cv" path="res://tile_map.gd" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://yv4ka5fjkiw5" path="res://scene/pacman.tscn" id="3_h2yge"]
-[ext_resource type="AudioStream" uid="uid://bnxugtt2eriq0" path="res://Resources/Sound/pacman_death.wav" id="3_ryguw"]
 [ext_resource type="PackedScene" uid="uid://bm4rpnkwl8lvl" path="res://palet.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://di3ce0vr4wv41" path="res://palets_manager.gd" id="4_7mycd"]
-[ext_resource type="AudioStream" uid="uid://100ohtpyo02o" path="res://Resources/Sound/pacman_eatghost.wav" id="4_d13ii"]
-[ext_resource type="AudioStream" uid="uid://c4b0pvuyylv4a" path="res://Resources/Sound/pacman_power_pellet.wav" id="5_1u8w0"]
 [ext_resource type="PackedScene" uid="uid://cgwvdwc37kva8" path="res://scene/connector.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byuy6q8y4xxwp" path="res://scene/ui.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cddk7yp2wx6ev" path="res://ghost.tscn" id="8_5vw27"]
@@ -21,6 +17,10 @@
 [ext_resource type="Script" uid="uid://txudig2duw0e" path="res://Resources/movement_target.gd" id="15_vivmo"]
 [ext_resource type="Script" uid="uid://boh20lmiixtwb" path="res://lifes.gd" id="15_yaehf"]
 [ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="17_yaehf"]
+[ext_resource type="AudioStream" uid="uid://bu756i3lh25h3" path="res://Resources/Sound/pacman_chomp.wav" id="18_getpj"]
+[ext_resource type="AudioStream" uid="uid://100ohtpyo02o" path="res://Resources/Sound/pacman_eatghost.wav" id="19_ryguw"]
+[ext_resource type="AudioStream" uid="uid://c4b0pvuyylv4a" path="res://Resources/Sound/pacman_power_pellet.wav" id="20_d13ii"]
+[ext_resource type="AudioStream" uid="uid://bnxugtt2eriq0" path="res://Resources/Sound/pacman_death.wav" id="21_1u8w0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kek77"]
 vertices = PackedVector2Array(-1.84375, -0.6171875, -1.9140625, -12, 1.078125, -12, 1.109375, -0.6171875, -1.796875, 1.9765625, 12, -0.6171875, 12, 1.96875, 1.2578125, 1.9765625, 1.2265625, 12, -1.796875, 12, -12, 1.9765625, -12, -0.5390625)
@@ -430,21 +430,24 @@ power_pellet_sound = NodePath("PowerPelletSound")
 pacman_death_sound_player = NodePath("DeathSound")
 pacman_chomp = NodePath("PacmanChomp")
 
+[node name="Pattern" type="Sprite2D" parent="player/Sprite2D" parent_id_path=PackedInt32Array(654613068, 1322231714) unique_id=1247003083]
+texture_filter = 1
+scale = Vector2(0.078125, 0.078125)
+
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="player" unique_id=46309701]
-stream = ExtResource("3_ryguw")
+stream = ExtResource("21_1u8w0")
 
 [node name="EatGhostSound" type="AudioStreamPlayer2D" parent="player" unique_id=739469690]
-stream = ExtResource("4_d13ii")
+stream = ExtResource("19_ryguw")
 
 [node name="PowerPelletSound" type="AudioStreamPlayer2D" parent="player" unique_id=797045387]
-stream = ExtResource("5_1u8w0")
+stream = ExtResource("20_d13ii")
 
 [node name="PacmanChomp" type="AudioStreamPlayer2D" parent="player" unique_id=284431933]
-stream = ExtResource("2_getpj")
+stream = ExtResource("18_getpj")
 
-[node name="Pellets" type="Node" parent="." unique_id=729613908 node_paths=PackedStringArray("ghost_array")]
+[node name="Pellets" type="Node" parent="." unique_id=729613908]
 script = ExtResource("4_7mycd")
-ghost_array = [NodePath("../Ghosts/RedGhost"), NodePath("../Ghosts/BlueGhost"), NodePath("../Ghosts/GreenGhost")]
 
 [node name="Palet86" parent="Pellets" unique_id=390051130 instance=ExtResource("4_1bvp3")]
 position = Vector2(-641, -611)
@@ -2331,32 +2334,26 @@ texture = ExtResource("9_4c57u")
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
-[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 z_index = 2
 position = Vector2(0, -139)
-at_home_targets = [NodePath("../../MovementTargets/RedGhost/Home/Bottom"), NodePath("../../MovementTargets/RedGhost/Home/Top")]
-scatter_targets = [NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red1"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red2"), null, NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red4")]
 color = Color(1, 0, 0, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
 
 [node name="Home" type="Node" parent="Ghosts/RedGhost" unique_id=455260006]
 
-[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 z_index = 2
 position = Vector2(-21.000002, -27.000004)
-at_home_targets = [NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Home/Bottom"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Home/Top")]
-scatter_targets = [NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue1"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue2"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue3"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue4")]
 color = Color(0, 0, 1, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
 is_starting_at_home = true
 
-[node name="GreenGhost" parent="Ghosts" unique_id=412732086 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="GreenGhost" parent="Ghosts" unique_id=412732086 node_paths=PackedStringArray("chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 z_index = 2
 position = Vector2(90, 0)
-at_home_targets = [NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Home/Bottom"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Home/Top")]
-scatter_targets = [NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green1"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green2"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green3"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green4"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green5")]
 color = Color(0, 1, 0, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
@@ -2446,7 +2443,7 @@ script = ExtResource("15_vivmo")
 visible = false
 offset_left = -1.0
 offset_right = 199.0
-offset_bottom = 80.0
+offset_bottom = 130.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vivmo")
 
 [node name="lifes" type="CanvasLayer" parent="Panel" unique_id=1768158201]
@@ -2483,6 +2480,30 @@ offset_right = 75.0
 offset_bottom = 103.0
 theme_override_fonts/font = ExtResource("17_yaehf")
 
+[node name="HudNameLabel" type="Label" parent="Panel/lifes" unique_id=802009043]
+offset_left = 10.0
+offset_top = 103.0
+offset_right = 180.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("17_yaehf")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
 [node name="Britness" type="CanvasModulate" parent="." unique_id=156183661 groups=["svetlost"]]
+
+[node name="Sound" type="Node" parent="." unique_id=2133902878]
+
+[node name="ChompSound" type="AudioStreamPlayer2D" parent="Sound" unique_id=311495780]
+stream = ExtResource("18_getpj")
+
+[node name="EatingSound" type="AudioStreamPlayer2D" parent="Sound" unique_id=1106576423]
+stream = ExtResource("19_ryguw")
+
+[node name="PowerPallet" type="AudioStreamPlayer2D" parent="Sound" unique_id=1028732909]
+stream = ExtResource("20_d13ii")
+
+[node name="PacmanDeath" type="AudioStreamPlayer2D" parent="Sound" unique_id=1997167092]
+stream = ExtResource("21_1u8w0")
 
 [editable path="player"]

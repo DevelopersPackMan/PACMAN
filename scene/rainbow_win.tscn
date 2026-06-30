@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c8h3k2naq1xy0"]
+
+[ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="1_font"]
+[ext_resource type="Script" uid="uid://bo3q68w6xkctw" path="res://scene/rainbow_win.gd" id="2_script"]
+
+[node name="RainbowWin" type="Control" unique_id=819423932]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=561499284]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.12, 1)
+
+[node name="RainbowRect" type="TextureRect" parent="." unique_id=888697170]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -216.0
+offset_right = 400.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CongratsLabel" type="Label" parent="." unique_id=5447996]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -502.0
+offset_top = 28.0
+offset_right = 498.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 12
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 28
+text = "ČESTITKE!"
+horizontal_alignment = 1
+vertical_alignment = 1
