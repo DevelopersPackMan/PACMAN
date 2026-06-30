@@ -37,7 +37,7 @@ func game_over():
 	var pellets = get_parent().get_node("Pellets")
 	
 	if player and pellets:
-		var stats = lose_screen.find_child("StatsLabel") # Pazi, da ima LoseScreen tudi svojo labelo
+		var stats = lose_screen.find_child("StatsLabel") 
 		if stats:
 			stats.text = "Pikice: " + str(pellets.pellets_eaten)
 			

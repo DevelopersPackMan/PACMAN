@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://dfmxv56lqwp7b"]
 
+[ext_resource type="Script" uid="uid://dk6jk5q35l10c" path="res://ghost_wardrobe.gd" id="1_0nlpm"]
 [ext_resource type="Texture2D" uid="uid://c1g7k6n1p28e6" path="res://Resources/Graphics/inventory_1.png" id="1_kor1v"]
+[ext_resource type="Texture2D" uid="uid://bh35fl0wqe63" path="res://Resources/Graphics/Pacman_01.png" id="3_hsyah"]
+[ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="5_g5trf"]
 
 [node name="GhostWardrobe" type="Node2D" unique_id=1681450887]
+position = Vector2(290, 264)
+script = ExtResource("1_0nlpm")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=649877135]
 
@@ -11,3 +16,144 @@ offset_right = 1152.0
 offset_bottom = 648.0
 texture = ExtResource("1_kor1v")
 expand_mode = 1
+
+[node name="GhostPreview" type="Sprite2D" parent="CanvasLayer" unique_id=399134485]
+texture_filter = 1
+position = Vector2(323, 231)
+scale = Vector2(10, 10)
+texture = ExtResource("3_hsyah")
+
+[node name="Pattern" type="Sprite2D" parent="CanvasLayer/GhostPreview" unique_id=245979452]
+texture_filter = 1
+scale = Vector2(0.078125, 0.078125)
+
+[node name="NameInput" type="LineEdit" parent="CanvasLayer" unique_id=1619777381]
+anchors_preset = -1
+anchor_left = 0.113000005
+anchor_top = 0.29700002
+anchor_right = 0.113000005
+anchor_bottom = 0.29700002
+offset_left = 604.824
+offset_top = 93.54399
+offset_right = 884.824
+offset_bottom = 143.54399
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 22
+placeholder_text = "Ime pacmana..."
+alignment = 1
+max_length = 14
+
+[node name="GhostButton1" type="Button" parent="CanvasLayer" unique_id=544796501]
+self_modulate = Color(0.05882353, 0.11372549, 1, 1)
+offset_left = 98.0
+offset_top = 505.0
+offset_right = 178.0
+offset_bottom = 565.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="GhostButton2" type="Button" parent="CanvasLayer" unique_id=1108122196]
+modulate = Color(1, 1, 0.06666667, 1)
+offset_left = 217.0
+offset_top = 505.0
+offset_right = 297.0
+offset_bottom = 565.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="GhostButton3" type="Button" parent="CanvasLayer" unique_id=945039705]
+modulate = Color(1, 0.16078432, 0.03137255, 1)
+offset_left = 337.0
+offset_top = 504.0
+offset_right = 417.0
+offset_bottom = 564.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="GhostButton4" type="Button" parent="CanvasLayer" unique_id=1317734431]
+modulate = Color(0.20784314, 1, 0.0627451, 1)
+offset_left = 455.0
+offset_top = 505.0
+offset_right = 535.0
+offset_bottom = 565.0
+icon = ExtResource("3_hsyah")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PrevPageButton" type="Button" parent="CanvasLayer" unique_id=1317734433]
+offset_left = 668.0
+offset_top = 147.0
+offset_right = 848.0
+offset_bottom = 207.0
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 30
+text = "<"
+flat = true
+
+[node name="NextPageButton" type="Button" parent="CanvasLayer" unique_id=1317734434]
+offset_left = 878.0
+offset_top = 147.0
+offset_right = 1058.0
+offset_bottom = 207.0
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 30
+text = ">"
+flat = true
+
+[node name="AccButton1" type="Button" parent="CanvasLayer" unique_id=209773684]
+offset_left = 664.0
+offset_top = 75.0
+offset_right = 844.0
+offset_bottom = 135.0
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 26
+text = "VZORCI"
+flat = true
+
+[node name="AccButton2" type="Button" parent="CanvasLayer" unique_id=989699873]
+offset_left = 878.0
+offset_top = 73.0
+offset_right = 1058.0
+offset_bottom = 133.0
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 26
+text = "BARVA"
+flat = true
+
+[node name="BackButton" type="Button" parent="CanvasLayer" unique_id=646574998]
+offset_left = 653.0
+offset_top = 535.0
+offset_right = 833.0
+offset_bottom = 595.0
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 30
+text = "BACK"
+flat = true
+
+[node name="ApplyButton" type="Button" parent="CanvasLayer" unique_id=1273146189]
+offset_left = 891.0
+offset_top = 533.0
+offset_right = 1071.0
+offset_bottom = 593.0
+theme_override_fonts/font = ExtResource("5_g5trf")
+theme_override_font_sizes/font_size = 30
+text = "APPLY"
+flat = true
+
+[connection signal="pressed" from="CanvasLayer/GhostButton1" to="." method="_on_ghost_button_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/GhostButton2" to="." method="_on_ghost_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/GhostButton3" to="." method="_on_ghost_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/GhostButton4" to="." method="_on_ghost_button_4_pressed"]
+[connection signal="pressed" from="CanvasLayer/PrevPageButton" to="." method="_on_prev_page_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/NextPageButton" to="." method="_on_next_page_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/AccButton1" to="." method="_on_acc_button_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/AccButton2" to="." method="_on_acc_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ApplyButton" to="." method="_on_apply_button_pressed"]

@@ -21,6 +21,20 @@ bg_color = Color(0.6, 0.6, 0.6, 0.007843138)
 default_font = ExtResource("1_onfsl")
 default_font_size = 40
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ipsn"]
+bg_color = Color(0.229882, 0.60999465, 0.9999998, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2m3p"]
+bg_color = Color(0.23137255, 0.6117647, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1247300037]
 script = ExtResource("1_s2f8l")
 
@@ -113,7 +127,6 @@ scale = Vector2(2, 2)
 script = ExtResource("5_ytdjg")
 
 [node name="WinScreen" type="Control" parent="." unique_id=804067984]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -345,21 +358,29 @@ text = "Text: \"Življenja: 3
 Pikice: 100\" "
 horizontal_alignment = 1
 
-[node name="RestartButton" type="TextureRect" parent="LoseScreen" unique_id=1038228667]
+[node name="RestartButton" type="Button" parent="LoseScreen" unique_id=134972751]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 507.0
-offset_right = 506.0
-offset_bottom = 607.0
-expand_mode = 1
+offset_left = 130.0
+offset_top = 547.0
+offset_right = 291.0
+offset_bottom = 619.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ipsn")
+text = "Restart"
 
-[node name="MenuButton" type="TextureRect" parent="LoseScreen" unique_id=221342843]
+[node name="MenuButton" type="Button" parent="LoseScreen" unique_id=1118702866]
 layout_mode = 0
-offset_left = 303.0
-offset_top = 508.0
-offset_right = 403.0
-offset_bottom = 608.0
-expand_mode = 1
+offset_left = 867.0
+offset_top = 546.0
+offset_right = 1028.0
+offset_bottom = 618.0
+theme_override_fonts/font = ExtResource("1_onfsl")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_j2m3p")
+text = "Menu"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="value_changed" from="SettingsScreen/HSlider" to="SettingsScreen/HSlider" method="_on_brightness_changed"]
+[connection signal="pressed" from="LoseScreen/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="LoseScreen/MenuButton" to="." method="_on_menu_button_pressed"]

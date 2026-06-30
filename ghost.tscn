@@ -90,12 +90,10 @@ _data = {
 &"run_away": SubResource("Animation_pa7oq")
 }
 
-[node name="Ghost" type="Area2D" unique_id=1504479397 node_paths=PackedStringArray("at_home_targets", "scatter_targets")]
+[node name="Ghost" type="Area2D" unique_id=1504479397]
 scale = Vector2(0.9, 0.9)
 collision_layer = 16
 script = ExtResource("1_obmiq")
-at_home_targets = [null, null]
-scatter_targets = [null, null, null, null]
 
 [node name="BodySprite" type="Sprite2D" parent="." unique_id=794951695]
 texture_filter = 1
@@ -147,6 +145,8 @@ text = "200"
 [node name="AtHomeTimer" type="Timer" parent="." unique_id=1821509275]
 wait_time = 8.0
 one_shot = true
+
+[node name="MouthSprite" type="Sprite2D" parent="." unique_id=1549154340]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ScatterTimer" to="." method="_on_scatter_timer_timeout"]
