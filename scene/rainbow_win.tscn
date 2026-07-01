@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://fg4quu4bpik4" path="res://Fonts/Pacmania.otf" id="1_font"]
 [ext_resource type="Script" uid="uid://bo3q68w6xkctw" path="res://scene/rainbow_win.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://c235bj0tbsd7n" path="res://Resources/Graphics/crno ozadje.png" id="3_e20ov"]
 
 [node name="RainbowWin" type="Control" unique_id=819423932]
 layout_mode = 3
@@ -12,14 +13,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_script")
 
-[node name="Background" type="ColorRect" parent="." unique_id=561499284]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=530758053]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -303.0
+offset_right = 51.0
+offset_bottom = 303.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.05, 0.12, 1)
+texture = ExtResource("3_e20ov")
 
 [node name="RainbowRect" type="TextureRect" parent="." unique_id=888697170]
 layout_mode = 1
