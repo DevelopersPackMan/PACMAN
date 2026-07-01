@@ -146,17 +146,17 @@ texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 12, 12, -12, -12, -12, -12, 12)
 3:0/0 = 0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.5, -12, -4.5, -12, 3, -12, 2.25, 12, -5.25, 12, -5.25, 1.5, -3.75, -2.25)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 12, 12, -12, -12, -12, -12, 12)
 5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3, -12, 0, -12, 0, 8.25, 0, 12, -3, 12, -3, 7.5)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.5395756, 12, 0.71943474, -12, -2.877739, -12, -3.057598, 12)
 6:0/0 = 0
-6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.17985916, 12, 0.35971832, 0, -12, 0, -12, 12)
 7:0/0 = 0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.17985916, 12, -0.35971832, 0, 12, 0, 12, 12)
 8:0/0 = 0
 9:0/0 = 0
 10:0/0 = 0
@@ -170,17 +170,17 @@ texture_region_size = Vector2i(32, 32)
 1:1/0 = 0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 2:1/0 = 0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.4173145, -12, 3.2374573, 3.4173155, -12, 3.4173155, -12, -12)
 3:1/0 = 0
-3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.4173145, 12, 3.2374573, -3.4173155, -12, -3.4173155, -12, 12)
 4:1/0 = 0
-4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.4173145, -12, -3.2374573, 3.4173155, 12, 3.4173155, 12, -12)
 5:1/0 = 0
-5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.4173145, 12, -3.2374573, -3.4173155, 12, -3.4173155, 12, 12)
 6:1/0 = 0
-6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.17985916, 12, 0.35971832, -0.17985725, -12, -0.35971642, -12, 12)
 7:1/0 = 0
-7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.17985916, 12, -0.35971832, -0.17985725, 12, -0.35971642, 12, 12)
 8:1/0 = 0
 9:1/0 = 0
 10:1/0 = 0
@@ -190,10 +190,11 @@ texture_region_size = Vector2i(32, 32)
 14:1/0 = 0
 15:1/0 = 0
 0:2/0 = 0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -0.35971546, 12, -0.17985916, 12, 12)
 1:2/0 = 0
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -0.35971546, 12, -0.17985916, 12, 12)
 2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -0.35971546, 12, -0.17985916, 12, 12)
 3:2/next_alternative_id = 22
 3:2/0 = 0
 3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
@@ -251,13 +252,13 @@ texture_region_size = Vector2i(32, 32)
 3:2/21 = 21
 3:2/21/navigation_layer_0/polygon = SubResource("NavigationPolygon_qsp4k")
 4:2/0 = 0
-4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -4.5, -12, 3, -12, 10.5, -12, 12, -7.5, 12, 6, 12, 12, 2.25, 12, -5.25, 12, -15, 14.25, -13.5, 9, -12, 4.5, -12, -0.75)
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 0, 9.712372, 0, 9.532513, -6.115196, 6.4749146, -6.115196, 6.2950554, -9.172794, 0.35971832, -8.992936, -0.17985916, -12, -12, -12, -12, 12, 12, 12)
 5:2/0 = 0
-5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, -9.712372, 0, -9.532513, -6.115196, -6.4749146, -6.115196, -6.2950554, -9.172794, -0.35971832, -8.992936, 0.17985916, -12, 12, -12, 12, 12, -12, 12)
 6:2/0 = 0
-6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 0, 9.712372, 0, 9.532513, 6.115196, 6.4749146, 6.115196, 6.2950554, 9.172794, 0.35971832, 8.992936, -0.17985916, 12, -12, 12, -12, -12, 12, -12)
 7:2/0 = 0
-7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, -9.712372, 0, -9.532513, 6.115196, -6.4749146, 6.115196, -6.2950554, 9.172794, -0.35971832, 8.992936, 0.17985916, 12, 12, 12, 12, -12, -12, -12)
 8:2/0 = 0
 9:2/0 = 0
 10:2/0 = 0
@@ -271,17 +272,17 @@ texture_region_size = Vector2i(32, 32)
 1:3/0 = 0
 1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 2:3/0 = 0
-2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -12, 0.35971546, 12, 0.17985916, 12, -12)
 3:3/0 = 0
-3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -0.35971546, 12, -0.17985916, 12, 12)
 4:3/0 = 0
-4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -0.35971546, -3.057598, -0.5395756, -3.057598, -3.2374563, 0.35971832, -3.2374563, 0.17985916, -12, 12, -12, 12, 12)
 5:3/0 = 0
-5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, -12, 0.35971546, -3.057598, 0.5395756, -3.057598, 3.2374563, 0.35971832, 3.2374563, 0.17985916, 12, 12, 12, 12, -12)
 6:3/0 = 0
-6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, 12, 0, 12, 12, -12, 12)
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 12, 12, -0.35971546, 3.057598, -0.5395756, 3.057598, -3.2374563, -0.35971832, -3.2374563, -0.17985916, -12, -12, -12, -12, 12)
 7:3/0 = 0
-7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0, 12, 0, 12, 12, -12, 12)
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, -12, 12, 0.35971546, 3.057598, 0.5395756, 3.057598, 3.2374563, -0.35971832, 3.2374563, -0.17985916, 12, -12, 12, -12, -12)
 8:3/0 = 0
 9:3/0 = 0
 10:3/0 = 0
@@ -294,13 +295,13 @@ texture_region_size = Vector2i(32, 32)
 1:4/0 = 0
 1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 2:4/0 = 0
-2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 12, 12, -0.35971546, 3.057598, -0.5395756, 3.057598, -3.2374563, -0.35971832, -3.2374563, -0.17985916, -12, -12, -12, -12, 12)
 3:4/0 = 0
-3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -12, -0.5395756, -3.2374573, -0.5395756, -3.057598, -3.4173155, 0.35971832, -3.4173155, 0.35971832, -12, 12, -12, 12, 12)
 4:4/0 = 0
-4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 0.35971832, -12, -12, 8.992936, -12, 8.992936, 0.17985916)
 5:4/0 = 0
-5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(12, 0.35971832, 12, -12, -8.992936, -12, -8.992936, 0.17985916)
 6:4/0 = 0
 7:4/0 = 0
 8:4/0 = 0
@@ -430,7 +431,7 @@ power_pellet_sound = NodePath("PowerPelletSound")
 pacman_death_sound_player = NodePath("DeathSound")
 pacman_chomp = NodePath("PacmanChomp")
 
-[node name="Pattern" type="Sprite2D" parent="player/Sprite2D" parent_id_path=PackedInt32Array(654613068, 1322231714) unique_id=1247003083]
+[node name="Pattern" type="Sprite2D" parent="player/Sprite2D" parent_id_path=PackedInt32Array(654613068, 1322231714) index="0" unique_id=1247003083]
 texture_filter = 1
 scale = Vector2(0.078125, 0.078125)
 
@@ -446,8 +447,9 @@ stream = ExtResource("20_d13ii")
 [node name="PacmanChomp" type="AudioStreamPlayer2D" parent="player" unique_id=284431933]
 stream = ExtResource("18_getpj")
 
-[node name="Pellets" type="Node" parent="." unique_id=729613908]
+[node name="Pellets" type="Node" parent="." unique_id=729613908 node_paths=PackedStringArray("ghost_array")]
 script = ExtResource("4_7mycd")
+ghost_array = [NodePath("../Ghosts/RedGhost"), NodePath("../Ghosts/BlueGhost"), NodePath("../Ghosts/GreenGhost")]
 
 [node name="Palet86" parent="Pellets" unique_id=390051130 instance=ExtResource("4_1bvp3")]
 position = Vector2(-641, -611)
@@ -2312,6 +2314,7 @@ position = Vector2(628, 382)
 [node name="Connector" parent="." unique_id=168904100 instance=ExtResource("5_lquwl")]
 
 [node name="UI" parent="." unique_id=1247300037 instance=ExtResource("7_272bh")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1236379389]
 layer = -1
@@ -2334,26 +2337,32 @@ texture = ExtResource("9_4c57u")
 
 [node name="Ghosts" type="Node" parent="." unique_id=1734785544]
 
-[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="RedGhost" parent="Ghosts" unique_id=1504479397 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 z_index = 2
 position = Vector2(0, -139)
+at_home_targets = [NodePath("../../MovementTargets/RedGhost/Home/Bottom"), NodePath("../../MovementTargets/RedGhost/Home/Top")]
+scatter_targets = [NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red1"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red2"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red3"), NodePath("../../MovementTargets/RedGhost/ScatterTargets/Red4")]
 color = Color(1, 0, 0, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
 
 [node name="Home" type="Node" parent="Ghosts/RedGhost" unique_id=455260006]
 
-[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="BlueGhost" parent="Ghosts" unique_id=2108784666 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 z_index = 2
 position = Vector2(-21.000002, -27.000004)
+at_home_targets = [NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Home/Top"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Home/Bottom")]
+scatter_targets = [NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue1"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue2"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue3"), NodePath("../../MovementTargets/BlueGhost/ScatterTargets/Blue4")]
 color = Color(0, 0, 1, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
 is_starting_at_home = true
 
-[node name="GreenGhost" parent="Ghosts" unique_id=412732086 node_paths=PackedStringArray("chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
+[node name="GreenGhost" parent="Ghosts" unique_id=412732086 node_paths=PackedStringArray("at_home_targets", "scatter_targets", "chasing_target", "points_manager") instance=ExtResource("8_5vw27")]
 z_index = 2
 position = Vector2(90, 0)
+at_home_targets = [NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Home/Bottom"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Home/Top")]
+scatter_targets = [NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green1"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green2"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green3"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green4"), NodePath("../../MovementTargets/GreenGhost/ScatterTargets/Green5")]
 color = Color(0, 1, 0, 1)
 chasing_target = NodePath("../../player")
 points_manager = NodePath("../../PointsManager")
@@ -2371,16 +2380,19 @@ position = Vector2(-404, -458)
 [node name="Red2" type="Marker2D" parent="MovementTargets/RedGhost/ScatterTargets" unique_id=564030015]
 position = Vector2(-637, -451)
 
+[node name="Red3" type="Marker2D" parent="MovementTargets/RedGhost/ScatterTargets" unique_id=1179693772]
+position = Vector2(-637, -651)
+
 [node name="Red4" type="Marker2D" parent="MovementTargets/RedGhost/ScatterTargets" unique_id=458144583]
 position = Vector2(-381, -651)
 
 [node name="Home" type="Node" parent="MovementTargets/RedGhost" unique_id=1297768101]
 
 [node name="Bottom" type="Marker2D" parent="MovementTargets/RedGhost/Home" unique_id=508591910]
-position = Vector2(-141, 29)
+position = Vector2(-157, 29)
 
 [node name="Top" type="Marker2D" parent="MovementTargets/RedGhost/Home" unique_id=175997431]
-position = Vector2(-141, -68)
+position = Vector2(-157, -52)
 
 [node name="BlueGhost" type="Node" parent="MovementTargets" unique_id=170248226]
 
@@ -2404,7 +2416,7 @@ position = Vector2(628, -451)
 position = Vector2(3, 29)
 
 [node name="Top" type="Marker2D" parent="MovementTargets/BlueGhost/ScatterTargets/Home" unique_id=1539524022]
-position = Vector2(1, -67)
+position = Vector2(1, -43)
 
 [node name="GreenGhost" type="Node" parent="MovementTargets" unique_id=424699533]
 
