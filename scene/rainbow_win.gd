@@ -14,8 +14,11 @@ var frame_textures: Array = []
 var current_frame = 0
 var elapsed = 0.0
 var finished = false
+var is_playing = false 
 
 func _ready():
+	hide()
+	
 	var sheet = preload("res://Resources/Graphics/Rainbow/mavrica_sheet.png")
 	
 	var count = 0
@@ -38,16 +41,21 @@ func _ready():
 			congrats_label.text = "ČESTITKE!\nOSVOJIL/A SI VSE BARVE!"
 		else:
 			congrats_label.text = "ČESTITKE, " + ime.to_upper() + "!\nOSVOJIL/A SI VSE BARVE!"
-		congrats_label.modulate.a = 0.0 # na začetku nevidno
+		congrats_label.modulate.a = 0.0 
+
+func začni_animacijo():
+	show() # Prikažemo zaslon z animacijo
+	is_playing = true
 
 func _process(delta):
-	if frame_textures.size() == 0:
+	if not is_playing or frame_textures.size() == 0:
 		return
+		
 	if finished:
-		# Postopoma prikažemo besedilo (fade in) ko je animacija koncana
 		if congrats_label != null and congrats_label.modulate.a < 1.0:
 			congrats_label.modulate.a = min(congrats_label.modulate.a + delta * 2.0, 1.0)
 		return
+		
 	elapsed += delta
 	var target_frame = int(elapsed * FPS)
 	if target_frame >= frame_textures.size():
@@ -55,5 +63,6 @@ func _process(delta):
 		finished = true
 	else:
 		current_frame = target_frame
+		
 	if rainbow_rect != null:
 		rainbow_rect.texture = frame_textures[current_frame]
