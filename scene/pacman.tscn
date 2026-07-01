@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://2xj6ip5thdc6" path="res://Resources/Graphics/Pacman_Death_11.png" id="16_a3tub"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xl4iw"]
-radius = 9.999999
+radius = 10.000001
 
 [sub_resource type="Animation" id="Animation_pdxar"]
 resource_name = "Defoult"
@@ -76,7 +76,7 @@ _data = {
 }
 
 [node name="player" type="CharacterBody2D" unique_id=654613068]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.08, 0.08)
 collision_mask = 30
 script = ExtResource("1_wy4gw")
 
@@ -87,6 +87,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_xl4iw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=736052156]
+scale = Vector2(1.3, 1.3)
 shape = SubResource("CircleShape2D_xl4iw")
 
 [node name="DirectionPointer" type="Sprite2D" parent="." unique_id=1689199943]

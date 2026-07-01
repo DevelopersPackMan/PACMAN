@@ -46,8 +46,8 @@ var backup_timer: Timer
 var is_leaving_home_after_eaten = false 
 
 func _ready():
-	navigation_agent_2d.path_desired_distance = 8.0
-	navigation_agent_2d.target_desired_distance = 8.0
+	navigation_agent_2d.path_desired_distance = 4.0
+	navigation_agent_2d.target_desired_distance = 4.0
 	navigation_agent_2d.target_reached.connect(on_position_reached)
 	
 	backup_timer = Timer.new()
@@ -72,7 +72,10 @@ func _physics_process(delta):
 		start_scatter_loop()
 		return
 
-	if navigation_agent_2d.is_navigation_finished():
+	# Prisilno preverjanje prihoda domov za oči v vsakem physics koraku
+	if current_state == GhostState.EATEN:
+		check_if_home_reached()
+	elif navigation_agent_2d.is_navigation_finished():
 		return
 		
 	var next_path_pos = navigation_agent_2d.get_next_path_position()
@@ -117,10 +120,26 @@ func calculate_direction(move_direction: Vector2):
 	
 func setup():
 	await get_tree().physics_frame
+	await get_tree().physics_frame
 	
-	if is_starting_at_home: 
+	print("SETUP za duha: ", name, " | Število domačih točk: ", at_home_targets.size())
+	
+	# VARNOSTNO PREVERJANJE: Če je seznam domačih točk prazen, preprečimo sesutje
+	if is_starting_at_home and at_home_targets.size() == 0:
+		print("OPOZORILO: ", name, " nima domačih točk v urejevalniku. Prisilno preklop v SCATTER.")
+		is_starting_at_home = false
+	
+	if is_starting_at_home:
+		# Zeleni in modri duhovi, ki štartajo v bazi, čakajo dlje časa
+		if color.r < 0.9: 
+			at_home_timer.wait_time = 6.0 # Zeleni in modri počakata v polju dlje
+		else:
+			at_home_timer.wait_time = 1.5 
+		
 		start_at_home()
 	else: 
+		# POPRAVEK: Rdeči duh nima zakasnitve in ne štarta doma, ampak takoj ob zagonu
+		# začne potovati proti svojim scatter targetom (patruliranje v svojem delu)
 		start_scatter_loop()
 
 func start_at_home(): 
@@ -132,6 +151,7 @@ func start_at_home():
 	
 	if at_home_targets.size() > current_at_home_index and is_instance_valid(at_home_targets[current_at_home_index]):
 		navigation_agent_2d.target_position = at_home_targets[current_at_home_index].global_position
+		await get_tree().physics_frame
 		navigation_agent_2d.get_next_path_position()
 		
 func _on_at_home_timer_timeout() -> void:
@@ -147,6 +167,7 @@ func leave_home_completely():
 		navigation_agent_2d.path_desired_distance = 4.0
 		navigation_agent_2d.target_desired_distance = 4.0
 		navigation_agent_2d.target_position = respawn_home_target.global_position
+		await get_tree().physics_frame
 		navigation_agent_2d.get_next_path_position()
 	else:
 		is_leaving_home_after_eaten = false
@@ -156,10 +177,12 @@ func update_navigation_target():
 	if current_state == GhostState.EATEN or current_state == GhostState.STARTING_AT_HOME:
 		return 
 		
+	# Vsak duh potuje ciklično po SVOJIH scatter_targets točkah v svojem kotu
 	if scatter_targets.size() > 0 and current_scatter_index < scatter_targets.size():
 		var target_marker = scatter_targets[current_scatter_index]
 		if is_instance_valid(target_marker):
 			navigation_agent_2d.target_position = target_marker.global_position
+			await get_tree().physics_frame
 			navigation_agent_2d.get_next_path_position()
 	
 func start_scatter_loop():
@@ -170,6 +193,7 @@ func start_scatter_loop():
 	if update_chasing_target_position_timer != null:
 		update_chasing_target_position_timer.stop()
 		
+	scatter_timer.wait_time = 7.0 # Čas patruliranja v svojem kotu pred preklopom v lov
 	scatter_timer.start()
 	
 	if game_over:
@@ -188,8 +212,8 @@ func on_position_reached():
 	elif current_state == GhostState.STARTING_AT_HOME: 
 		if is_leaving_home_after_eaten:
 			is_leaving_home_after_eaten = false
-			navigation_agent_2d.path_desired_distance = 8.0
-			navigation_agent_2d.target_desired_distance = 8.0
+			navigation_agent_2d.path_desired_distance = 4.0
+			navigation_agent_2d.target_desired_distance = 4.0
 			
 			if not run_away_timer.is_stopped():
 				current_state = GhostState.RUN_AWAY
@@ -201,14 +225,21 @@ func on_position_reached():
 
 func move_to_next_home_position(): 
 	if at_home_targets.size() == 0:
+		leave_home_completely()
 		return
 		
 	current_at_home_index = (current_at_home_index + 1) % at_home_targets.size()
 	
-	var naslednja_tocka = at_home_targets[current_at_home_index]
-	if is_instance_valid(naslednja_tocka):
+	var naslednja_tocka = Fantasy_at_home_target_fallback()
+	if naslednja_tocka:
 		navigation_agent_2d.target_position = naslednja_tocka.global_position
+		await get_tree().physics_frame
 		navigation_agent_2d.get_next_path_position()
+
+func Fantasy_at_home_target_fallback() -> Node2D:
+	if at_home_targets.size() > current_at_home_index and is_instance_valid(at_home_targets[current_at_home_index]):
+		return at_home_targets[current_at_home_index]
+	return null
 		
 func scatter_position_reached(): 
 	if current_state == GhostState.EATEN: 
@@ -271,6 +302,8 @@ func start_chasing_pacman():
 		
 	current_state = GhostState.CHASE
 	navigation_agent_2d.target_position = chasing_target.global_position
+	
+	await get_tree().physics_frame
 	navigation_agent_2d.get_next_path_position() 
 	
 	if update_chasing_target_position_timer != null:
@@ -315,6 +348,7 @@ func run_away_from_pacman():
 
 	if movement_targets != null:
 		navigation_agent_2d.target_position = movement_targets.global_position
+		await get_tree().physics_frame
 		navigation_agent_2d.get_next_path_position()
 		
 	backup_timer.start()
@@ -358,22 +392,25 @@ func get_eaten():
 	if update_chasing_target_position_timer != null:
 		update_chasing_target_position_timer.stop()
 	
-	if points_manager:
-		await points_manager.pause_on_ghost_eaten()
-		
-	if point_label:
-		point_label.hide()
-	
 	if at_home_targets.size() > 0 and is_instance_valid(at_home_targets[0]):
 		var cilj = at_home_targets[0].global_position
-		navigation_agent_2d.path_desired_distance = 2.0
-		navigation_agent_2d.target_desired_distance = 2.0
+		
+		navigation_agent_2d.path_desired_distance = 4.0
+		navigation_agent_2d.target_desired_distance = 4.0
 		navigation_agent_2d.target_position = cilj
+		
+		await get_tree().physics_frame
 		navigation_agent_2d.get_next_path_position()
 		backup_timer.start()
 	else:
-		print("NAPAKA: Seznam 'at_home_targets' je prazen!")
-		start_scatter_loop()
+		print("CRITICAL NAPAKA: Seznam 'at_home_targets' za ", name, " je prazen! Duh takoj oživi.")
+		start_chasing_pacman_after_being_eaten()
+		return
+		
+	await get_tree().create_timer(0.4).timeout
+		
+	if point_label:
+		point_label.hide()
 
 func check_if_home_reached():
 	if current_state != GhostState.EATEN:
@@ -383,13 +420,12 @@ func check_if_home_reached():
 		var home_pos = at_home_targets[0].global_position
 		var razdalja = global_position.distance_to(home_pos)
 		
-		if razdalja < 8.0:
+		# Večja toleranca, da hitre očke zanesljivo ulovijo točko prihoda
+		if razdalja < 12.0:
 			backup_timer.stop()
 			start_chasing_pacman_after_being_eaten()
 		else:
 			navigation_agent_2d.target_position = home_pos
-			navigation_agent_2d.get_next_path_position()
-			backup_timer.start()
 	else:
 		start_scatter_loop()
 		
