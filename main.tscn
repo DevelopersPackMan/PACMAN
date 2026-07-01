@@ -2314,7 +2314,6 @@ position = Vector2(628, 382)
 [node name="Connector" parent="." unique_id=168904100 instance=ExtResource("5_lquwl")]
 
 [node name="UI" parent="." unique_id=1247300037 instance=ExtResource("7_272bh")]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1236379389]
 layer = -1
